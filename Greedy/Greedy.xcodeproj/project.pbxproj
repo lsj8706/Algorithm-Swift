@@ -22,6 +22,7 @@
 		CE71D5722825670300A477F4 /* Greedy */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Greedy; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE71D5752825670300A477F4 /* boj5585.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = boj5585.swift; sourceTree = "<group>"; };
 		CE71D57C28256BC200A477F4 /* boj2839.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = boj2839.swift; sourceTree = "<group>"; };
+		CE71D57E2825706300A477F4 /* boj1789.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = boj1789.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +57,7 @@
 			children = (
 				CE71D5752825670300A477F4 /* boj5585.swift */,
 				CE71D57C28256BC200A477F4 /* boj2839.swift */,
+				CE71D57E2825706300A477F4 /* boj1789.swift */,
 			);
 			path = Greedy;
 			sourceTree = "<group>";
