@@ -6,6 +6,10 @@
 	objectVersion = 55;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		CE71D5832825801200A477F4 /* boj11047.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE71D5822825801200A477F4 /* boj11047.swift */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXCopyFilesBuildPhase section */
 		CE71D5702825670300A477F4 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -24,6 +28,7 @@
 		CE71D57C28256BC200A477F4 /* boj2839.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = boj2839.swift; sourceTree = "<group>"; };
 		CE71D57E2825706300A477F4 /* boj1789.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = boj1789.swift; sourceTree = "<group>"; };
 		CE71D5802825767D00A477F4 /* boj1543.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = boj1543.swift; sourceTree = "<group>"; };
+		CE71D5822825801200A477F4 /* boj11047.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = boj11047.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +65,7 @@
 				CE71D57C28256BC200A477F4 /* boj2839.swift */,
 				CE71D57E2825706300A477F4 /* boj1789.swift */,
 				CE71D5802825767D00A477F4 /* boj1543.swift */,
+				CE71D5822825801200A477F4 /* boj11047.swift */,
 			);
 			path = Greedy;
 			sourceTree = "<group>";
@@ -123,6 +129,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE71D5832825801200A477F4 /* boj11047.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
