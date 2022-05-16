@@ -24,6 +24,7 @@ func check(hour: Int, minute: Int, second: Int, value: Int) -> Bool {
     if minuteString.count == 1 { minuteString.insert("0", at: minuteString.startIndex) }
     if secondString.count == 1 { secondString.insert("0", at: secondString.startIndex) }
     
+    // String.contains(value)는 해당 String이 value를 포함하고 있으면 true를 return
     if "\(hourString)\(minuteString)\(secondString)".contains(String(k)) {
         return true
     }
@@ -35,7 +36,6 @@ func check(hour: Int, minute: Int, second: Int, value: Int) -> Bool {
 for hour in 0...n {
     for minute in 0..<60 {
         for second in 0..<60 {
-            // String.contains(value)는 해당 String이 value를 포함하고 있으면 true를 return
             if check(hour: hour, minute: minute, second: second, value: k) {
                 cnt += 1
             }
