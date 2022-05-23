@@ -21,6 +21,7 @@
 /* Begin PBXFileReference section */
 		CE048EBD2830DDA400493A0B /* Implementation */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Implementation; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE048EC02830DDA400493A0B /* boj_18312.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = boj_18312.swift; sourceTree = "<group>"; };
+		CE4CF48F283BBC530081412B /* boj_2941.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = boj_2941.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +55,7 @@
 			isa = PBXGroup;
 			children = (
 				CE048EC02830DDA400493A0B /* boj_18312.swift */,
+				CE4CF48F283BBC530081412B /* boj_2941.swift */,
 			);
 			path = Implementation;
 			sourceTree = "<group>";
@@ -90,6 +92,7 @@
 				TargetAttributes = {
 					CE048EBC2830DDA400493A0B = {
 						CreatedOnToolsVersion = 13.3;
+						LastSwiftMigration = 1330;
 					};
 				};
 			};
@@ -238,10 +241,17 @@
 		CE048EC52830DDA400493A0B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9K86FQHDLU;
 				ENABLE_HARDENED_RUNTIME = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -249,9 +259,15 @@
 		CE048EC62830DDA400493A0B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9K86FQHDLU;
 				ENABLE_HARDENED_RUNTIME = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 			};
