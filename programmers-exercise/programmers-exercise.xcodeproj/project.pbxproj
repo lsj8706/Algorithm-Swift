@@ -13,6 +13,7 @@
 		CEE272E72893C19C00172723 /* pg_12950.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE272E62893C19C00172723 /* pg_12950.swift */; };
 		CEE272E92893C41600172723 /* pg_12948.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE272E82893C41600172723 /* pg_12948.swift */; };
 		CEE272EB2893CCD000172723 /* pg_12947.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE272EA2893CCD000172723 /* pg_12947.swift */; };
+		CEE272ED2893D58B00172723 /* pg_12944.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE272EC2893D58B00172723 /* pg_12944.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -35,6 +36,7 @@
 		CEE272E62893C19C00172723 /* pg_12950.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = pg_12950.swift; sourceTree = "<group>"; };
 		CEE272E82893C41600172723 /* pg_12948.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = pg_12948.swift; sourceTree = "<group>"; };
 		CEE272EA2893CCD000172723 /* pg_12947.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = pg_12947.swift; sourceTree = "<group>"; };
+		CEE272EC2893D58B00172723 /* pg_12944.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = pg_12944.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +75,7 @@
 				CEE272E62893C19C00172723 /* pg_12950.swift */,
 				CEE272E82893C41600172723 /* pg_12948.swift */,
 				CEE272EA2893CCD000172723 /* pg_12947.swift */,
+				CEE272EC2893D58B00172723 /* pg_12944.swift */,
 			);
 			path = "programmers-exercise";
 			sourceTree = "<group>";
@@ -136,6 +139,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CEE272EB2893CCD000172723 /* pg_12947.swift in Sources */,
+				CEE272ED2893D58B00172723 /* pg_12944.swift in Sources */,
 				CEE272E72893C19C00172723 /* pg_12950.swift in Sources */,
 				CEE272E92893C41600172723 /* pg_12948.swift in Sources */,
 				CE4CB77A2893BC010079D445 /* pg_12969.swift in Sources */,
