@@ -15,7 +15,7 @@ func solve8577() {
 }
 
 
-func solution(_ n:Int, _ keyInputs:[Int]) -> String {
+fileprivate func solution(_ n:Int, _ keyInputs:[Int]) -> String {
     var res = ""
     for key in keyInputs {
         if key == -2 {
