@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		CE0FE4E6289B93680061EB35 /* pg_8577.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0FE4E5289B93680061EB35 /* pg_8577.swift */; };
 		CE0FE4E8289B9B960061EB35 /* pg_12928.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0FE4E7289B9B960061EB35 /* pg_12928.swift */; };
+		CE0FE4EA289B9DFB0061EB35 /* pg_12926.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0FE4E9289B9DFB0061EB35 /* pg_12926.swift */; };
 		CE193C6C289579B300A95690 /* pg_12943.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE193C6B289579B300A95690 /* pg_12943.swift */; };
 		CE193C6E28957B4A00A95690 /* pg_12940.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE193C6D28957B4A00A95690 /* pg_12940.swift */; };
 		CE193C702898FE5400A95690 /* pg_12937.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE193C6F2898FE5400A95690 /* pg_12937.swift */; };
@@ -42,6 +43,7 @@
 /* Begin PBXFileReference section */
 		CE0FE4E5289B93680061EB35 /* pg_8577.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = pg_8577.swift; sourceTree = "<group>"; };
 		CE0FE4E7289B9B960061EB35 /* pg_12928.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = pg_12928.swift; sourceTree = "<group>"; };
+		CE0FE4E9289B9DFB0061EB35 /* pg_12926.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = pg_12926.swift; sourceTree = "<group>"; };
 		CE193C6B289579B300A95690 /* pg_12943.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = pg_12943.swift; sourceTree = "<group>"; };
 		CE193C6D28957B4A00A95690 /* pg_12940.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = pg_12940.swift; sourceTree = "<group>"; };
 		CE193C6F2898FE5400A95690 /* pg_12937.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = pg_12937.swift; sourceTree = "<group>"; };
@@ -109,6 +111,7 @@
 				CE193C7B289A5F4600A95690 /* pg_12930.swift */,
 				CE0FE4E5289B93680061EB35 /* pg_8577.swift */,
 				CE0FE4E7289B9B960061EB35 /* pg_12928.swift */,
+				CE0FE4E9289B9DFB0061EB35 /* pg_12926.swift */,
 			);
 			path = "programmers-exercise";
 			sourceTree = "<group>";
@@ -178,6 +181,7 @@
 				CE193C6C289579B300A95690 /* pg_12943.swift in Sources */,
 				CE0FE4E8289B9B960061EB35 /* pg_12928.swift in Sources */,
 				CEE272E72893C19C00172723 /* pg_12950.swift in Sources */,
+				CE0FE4EA289B9DFB0061EB35 /* pg_12926.swift in Sources */,
 				CE193C722898FFAC00A95690 /* pg_12935.swift in Sources */,
 				CE193C7A289A5D7B00A95690 /* pg_12931.swift in Sources */,
 				CE0FE4E6289B93680061EB35 /* pg_8577.swift in Sources */,
