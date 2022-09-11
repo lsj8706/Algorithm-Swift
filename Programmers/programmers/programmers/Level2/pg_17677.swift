@@ -11,7 +11,6 @@ import Foundation
 
 func solve17677() {
     print(solution("BAAAA", "AAA"))
-    print(intersection(["a","a","b","b","c"], ["a","b","b","d","e"] ))
 }
 
 fileprivate func solution(_ str1:String, _ str2:String) -> Int {
@@ -51,7 +50,6 @@ fileprivate func jaccard(_ a: [String], _ b: [String]) -> Double {
 
 fileprivate func intersection(_ a: [String], _ b: [String]) -> Int {
     var cnt = 0
-    
     var small = a
     var big = b
     
