@@ -1,14 +1,14 @@
 //
-//  main.swift
+//  T_2.swift
 //  SwiftCodingTestFighter
 //
 //  Created by sejin on 2022/10/06.
 //
+// page 312
+// 곱하기 혹은 더하기
 
 import Foundation
 
-func solve() {
-    solveT1_2()
+func solveT1_2() {
+    print("sad")
 }
-
-solve()

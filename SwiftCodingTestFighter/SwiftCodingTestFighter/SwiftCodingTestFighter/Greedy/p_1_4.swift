@@ -9,7 +9,7 @@
 
 import Foundation
 
-func solveP4() {
+func solveP1_4() {
     let input = readLine()!.split(separator: " ").map{ Int($0)! }
     var n = input[0]
     let k = input[1]
