@@ -8,7 +8,7 @@
 import Foundation
 
 func solve() {
-    solveT1_2()
+    solveT1_3()
 }
 
 solve()

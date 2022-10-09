@@ -15,7 +15,7 @@ func solveT1_2() {
     
     for i in 1..<input.count {
         let num = input[i]
-        if num < 1 || res < 1 {
+        if num <= 1 || res <= 1 {
             res += num
         } else {
             res *= num
