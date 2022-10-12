@@ -9,7 +9,7 @@
 
 import Foundation
 
-func solveT1_2() {
+func solveQ_2() {
     let input = readLine()!.map{ Int(String($0))! }
     var res = input[0]
     

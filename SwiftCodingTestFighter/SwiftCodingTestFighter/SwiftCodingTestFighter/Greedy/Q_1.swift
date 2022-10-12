@@ -9,7 +9,7 @@
 
 import Foundation
 
-func solveT1_1() {
+func solveQ_1() {
     let n = Int(readLine()!)!
     
     var res = 0

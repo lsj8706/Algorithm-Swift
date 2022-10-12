@@ -9,7 +9,7 @@
 
 import Foundation
 
-func solveT1_3() {
+func solveQ_3() {
     let input = readLine()!.map{ Int(String($0))! }
     
     var zeroCnt = 0
