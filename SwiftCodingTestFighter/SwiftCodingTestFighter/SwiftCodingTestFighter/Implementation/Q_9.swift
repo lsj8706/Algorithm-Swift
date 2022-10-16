@@ -10,7 +10,7 @@
 import Foundation
 
 func solveQ_9() {
-    print(solution("xababcdcdababcdcd"))
+    print(solution("ababcdcdababcdcd"    ))
 }
 
 
@@ -19,34 +19,35 @@ fileprivate func solution(_ s:String) -> Int {
     let s = Array(s)
     
     for i in 1..<s.count {
-        var res = [Character]()
-        var temp = [Character]()
+        var res = [String]()
+        var temp = [String]()
         var cnt = 0
         for j in 0..<s.count {
             if temp.count < i {
-                temp.append(s[j])
-                res.append(s[j])
+                temp.append(String(s[j]))
+                res.append(String(s[j]))
                 continue
             }
             if cnt > 0 {
                 cnt -= 1
                 continue
             }
-            if j+i-1 < s.count, temp == Array(s[j...(j+i-1)]) {
+            if j+i-1 < s.count, temp == Array(s[j...(j+i-1)]).map({String($0)}) {
                 cnt = i - 1
-                if !res.last!.isNumber {
-                    res.append("1")
+                if let last = Int(res.last!) {
+                    res[res.count - 1] = String(last + 1)
+                } else {
+                    res.append("2")
                 }
             } else {
-                temp.removeFirst()
-                temp.append(s[j])
-                res.append(s[j])
+                temp.removeAll()
+                temp.append(String(s[j]))
+                res.append(String(s[j]))
             }
         }
         
-        if res.count < ans {
-            ans = res.count
-            print(res)
+        if res.joined().count < ans {
+            ans = res.joined().count
         }
     }
     
