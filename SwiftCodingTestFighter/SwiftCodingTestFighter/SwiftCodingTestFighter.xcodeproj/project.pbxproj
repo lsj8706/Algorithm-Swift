@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CE1E9FCE291D14230090F80F /* Q_19.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1E9FCD291D14230090F80F /* Q_19.swift */; };
 		CE39FDA428EEF0C100ABEC63 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE39FDA328EEF0C100ABEC63 /* main.swift */; };
 		CE39FDAC28EEF31000ABEC63 /* p_1_3.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE39FDAB28EEF31000ABEC63 /* p_1_3.swift */; };
 		CE39FDAE28EEF53E00ABEC63 /* p_1_4.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE39FDAD28EEF53E00ABEC63 /* p_1_4.swift */; };
@@ -32,6 +33,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		CE1E9FCD291D14230090F80F /* Q_19.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Q_19.swift; sourceTree = "<group>"; };
 		CE39FDA028EEF0C100ABEC63 /* SwiftCodingTestFighter */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = SwiftCodingTestFighter; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE39FDA328EEF0C100ABEC63 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		CE39FDAB28EEF31000ABEC63 /* p_1_3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = p_1_3.swift; sourceTree = "<group>"; };
@@ -56,6 +58,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CE1E9FCC291D13D20090F80F /* DFS_BFS */ = {
+			isa = PBXGroup;
+			children = (
+				CE1E9FCD291D14230090F80F /* Q_19.swift */,
+			);
+			path = DFS_BFS;
+			sourceTree = "<group>";
+		};
 		CE39FD9728EEF0C100ABEC63 = {
 			isa = PBXGroup;
 			children = (
@@ -75,6 +85,7 @@
 		CE39FDA228EEF0C100ABEC63 /* SwiftCodingTestFighter */ = {
 			isa = PBXGroup;
 			children = (
+				CE1E9FCC291D13D20090F80F /* DFS_BFS */,
 				CEDF975D28F70E7900EE8B25 /* Implementation */,
 				CE39FDAA28EEF0CB00ABEC63 /* Greedy */,
 				CE39FDA328EEF0C100ABEC63 /* main.swift */,
@@ -172,6 +183,7 @@
 				CEDF976128F7105100EE8B25 /* Q_8.swift in Sources */,
 				CEDF975F28F70EBB00EE8B25 /* Q_7.swift in Sources */,
 				CE7E189428EF2D5500E1D210 /* Q_3.swift in Sources */,
+				CE1E9FCE291D14230090F80F /* Q_19.swift in Sources */,
 				CE39FDAE28EEF53E00ABEC63 /* p_1_4.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

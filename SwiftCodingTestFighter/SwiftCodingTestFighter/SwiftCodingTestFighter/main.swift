@@ -8,7 +8,7 @@
 import Foundation
 
 func solve() {
-    solveQ_10()
+    solveQ_19()
 }
 
 solve()
