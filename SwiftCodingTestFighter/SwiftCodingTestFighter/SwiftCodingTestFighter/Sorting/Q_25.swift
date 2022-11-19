@@ -15,7 +15,7 @@ func solveQ_25() {
 }
 
 fileprivate func solution(_ N:Int, _ stages:[Int]) -> [Int] {
-    var peopleInStage = Array(repeating: 0, count: N+2) // 각 스테이지에 머물러 있는 사람의 수
+    var peopleInStage = Array(repeating: 0, count: N+2) // 각 스테이지에 머물러 있는 사람의 수, 모든 스테이지를 완료한 사람이 있기 때문에 N+2 만큼의 크기로 설정
     var numOfReach = Array(repeating: 0, count: N+3) // 각 스테이지를 완료한 사람의 수
     var failRate = Array(repeating: 0.0, count: N+2) // 각 스테이지별 실패율 기록
 
@@ -29,6 +29,6 @@ fileprivate func solution(_ N:Int, _ stages:[Int]) -> [Int] {
         failRate[i] = Double(peopleInStage[i]) / Double(numOfReach[i])
     }
     
-    return failRate[1...N].enumerated().sorted(by: { $0.1 > $1.1 }).map{ $0.0 + 1 }
+    return failRate[1...N].enumerated().sorted(by: { $0.1 > $1.1 }).map{ $0.0 + 1 } // 어레이를 [1...N]으로 슬라이싱 했기 때문에 인덱스가 0부터 시작 => 1을 더해줘야 한다.
 }
 
