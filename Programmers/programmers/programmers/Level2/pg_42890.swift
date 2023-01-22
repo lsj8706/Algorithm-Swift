@@ -59,7 +59,7 @@ fileprivate func solution(_ relation:[[String]]) -> Int {
     return ans
 }
 
-func combination<T: Comparable>(_ array: [T], _ n: Int) -> [[T]] {
+fileprivate func combination<T: Comparable>(_ array: [T], _ n: Int) -> [[T]] {
     var result = [[T]]()
     if array.count < n { return result }
 
