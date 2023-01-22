@@ -104,6 +104,7 @@
 		CE90A22028CB0CAB0013C0B9 /* pg_12981.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE90A21F28CB0CAB0013C0B9 /* pg_12981.swift */; };
 		CE90A22228CD8E670013C0B9 /* pg_12985.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE90A22128CD8E670013C0B9 /* pg_12985.swift */; };
 		CE90A22428CD96800013C0B9 /* pg_17677.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE90A22328CD96800013C0B9 /* pg_17677.swift */; };
+		CE9B6E96297D63700090AF58 /* pg_131128.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9B6E95297D63700090AF58 /* pg_131128.swift */; };
 		CE9F3D0328E46B2E00C23C1F /* pg_42890.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9F3D0228E46B2E00C23C1F /* pg_42890.swift */; };
 		CED01E0028D9E3F500328219 /* pg_42587.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED01DFF28D9E3F500328219 /* pg_42587.swift */; };
 		CEEE27D728D893C100E01EC2 /* pg_42586.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEEE27D628D893C100E01EC2 /* pg_42586.swift */; };
@@ -221,6 +222,7 @@
 		CE90A21F28CB0CAB0013C0B9 /* pg_12981.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = pg_12981.swift; sourceTree = "<group>"; };
 		CE90A22128CD8E670013C0B9 /* pg_12985.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = pg_12985.swift; sourceTree = "<group>"; };
 		CE90A22328CD96800013C0B9 /* pg_17677.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = pg_17677.swift; sourceTree = "<group>"; };
+		CE9B6E95297D63700090AF58 /* pg_131128.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = pg_131128.swift; sourceTree = "<group>"; };
 		CE9F3D0228E46B2E00C23C1F /* pg_42890.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = pg_42890.swift; sourceTree = "<group>"; };
 		CED01DFF28D9E3F500328219 /* pg_42587.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = pg_42587.swift; sourceTree = "<group>"; };
 		CEEE27D628D893C100E01EC2 /* pg_42586.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = pg_42586.swift; sourceTree = "<group>"; };
@@ -374,6 +376,7 @@
 				CE683FAF28AE9368004A65C6 /* pg_87389.swift */,
 				CE683FC328AE9368004A65C6 /* pg_92334.swift */,
 				CE683FDA28AE9369004A65C6 /* pg_118666.swift */,
+				CE9B6E95297D63700090AF58 /* pg_131128.swift */,
 			);
 			path = Level1;
 			sourceTree = "<group>";
@@ -406,7 +409,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1340;
-				LastUpgradeCheck = 1340;
+				LastUpgradeCheck = 1410;
 				TargetAttributes = {
 					CE683F9728AE51A5004A65C6 = {
 						CreatedOnToolsVersion = 13.4.1;
@@ -450,6 +453,7 @@
 				CE683F9C28AE51A5004A65C6 /* main.swift in Sources */,
 				CE683FF428AE9369004A65C6 /* pg_12901.swift in Sources */,
 				CE3D8D8928D336E9006E0D85 /* pg_17680.swift in Sources */,
+				CE9B6E96297D63700090AF58 /* pg_131128.swift in Sources */,
 				CE68401028AE9369004A65C6 /* pg_12917.swift in Sources */,
 				CE90A22228CD8E670013C0B9 /* pg_12985.swift in Sources */,
 				CE3D8D8B28D33B33006E0D85 /* pg_42578.swift in Sources */,
@@ -576,6 +580,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -636,6 +641,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -659,7 +665,9 @@
 		CE683FA028AE51A5004A65C6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
+				DEAD_CODE_STRIPPING = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 			};
@@ -668,7 +676,9 @@
 		CE683FA128AE51A5004A65C6 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
+				DEAD_CODE_STRIPPING = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 			};

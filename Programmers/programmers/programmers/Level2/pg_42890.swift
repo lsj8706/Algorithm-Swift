@@ -20,8 +20,8 @@ fileprivate func solution(_ relation:[[String]]) -> Int {
     
     for i in 1...col {
 
-        var arr = Array(0...col-1)
-        var combinationResults = combination(arr, i)
+        let arr = Array(0...col-1)
+        let combinationResults = combination(arr, i)
         
         for combiRes in combinationResults {
             var set = Set<[String]>()
