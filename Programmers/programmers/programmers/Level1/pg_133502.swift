@@ -14,7 +14,7 @@ func solve133502() {
 }
 
 private func solution(_ ingredient:[Int]) -> Int {
-    var ingredient = ingredient
+    let ingredient = ingredient
     var result = 0
     var index = 0
 
