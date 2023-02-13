@@ -13,7 +13,7 @@ func solve142086() {
     print(solution("banana"))
 }
 
-private func solution(_ s:String) -> [Int] {
+fileprivate func solution(_ s:String) -> [Int] {
     var dict = [Character: Int]()
     var result = [Int]()
     

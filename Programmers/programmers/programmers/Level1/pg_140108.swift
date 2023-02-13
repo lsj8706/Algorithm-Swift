@@ -13,7 +13,7 @@ func solve140108() {
     print(solution("abracadabra"))
 }
 
-private func solution(_ s:String) -> Int {
+fileprivate func solution(_ s:String) -> Int {
     var s = Array(s)
     var result = 0
     var shouldRun = true

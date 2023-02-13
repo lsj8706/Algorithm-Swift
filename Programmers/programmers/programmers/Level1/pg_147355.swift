@@ -13,8 +13,8 @@ func solve147355() {
     print(solution("3141592", "271"))
 }
 
-private func solution(_ t:String, _ p:String) -> Int {
-    var t = Array(t).map { String($0) }
+fileprivate func solution(_ t:String, _ p:String) -> Int {
+    let t = Array(t).map { String($0) }
     
     var result = 0
     let size = p.count
