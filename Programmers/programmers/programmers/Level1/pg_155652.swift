@@ -15,9 +15,6 @@ func solve155652() {
 
 fileprivate func solution(_ s:String, _ skip:String, _ index:Int) -> String {
     
-    let aUnicode = Int(UnicodeScalar("a").value)
-    let zUnicode = Int(UnicodeScalar("z").value)
-    
     var result = ""
     
     for char in s {
