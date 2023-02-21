@@ -26,7 +26,7 @@ fileprivate func solution(_ numbers:String) -> Int {
     return getPrimeCount(Array(res))
 }
 
-func permutation(_ array: [String], _ n: Int) -> [Int] {
+fileprivate func permutation(_ array: [String], _ n: Int) -> [Int] {
     var result = [Int]()
     if array.count < n { return result }
 
