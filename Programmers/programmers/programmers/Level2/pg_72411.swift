@@ -56,7 +56,6 @@ fileprivate func solution(_ orders:[String], _ course:[Int]) -> [String] {
             } else if count == orderedCount {
                 temp.append(menu)
             }
-            
         }
         
         result.append(contentsOf: temp)
