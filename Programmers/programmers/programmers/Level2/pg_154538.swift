@@ -14,7 +14,7 @@ func solve154538() {
 }
 
 fileprivate func solution(_ x:Int, _ y:Int, _ n:Int) -> Int {
-    var result = -1
+    let result = -1
     
     var q = DoubleStackQueue<[Int]>()
     q.enqueue([y, 0])
