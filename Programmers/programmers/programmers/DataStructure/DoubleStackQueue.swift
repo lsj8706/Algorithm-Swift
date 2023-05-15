@@ -14,6 +14,16 @@ struct DoubleStackQueue<T> {
     var isEmpty: Bool {
         return inbox.isEmpty && outbox.isEmpty
     }
+    
+    var origin: [T] {
+        return outbox.reversed() + inbox
+    }
+    
+    init() {}
+    
+    init(array: [T]) {
+        self.inbox = array
+    }
 
     mutating func enqueue(_ input: T) {
         inbox.append(input)
