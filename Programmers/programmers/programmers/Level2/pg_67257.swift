@@ -26,15 +26,9 @@ fileprivate func solution(_ expression:String) -> Int64 {
             // op는 연산자, 반복문을 돌며 우선순위가 높은 연산자부터 계산
             var tempExpression = [String]() // 연산자를 한 종류씩 계산하고 남은 계산식
             var leftOperand: Int = -1 // 좌측 피연산자, -1일 경우 연산하지 않아야 함
-            for (index, x) in temp.enumerated() {
+            for x in temp {
                 if x == op {
-                    // 첫번째 문자가 -이면 좌측 피연산자를 못 만들기 때문에 대신 뒤의 숫자를 음수로 만들어야 함
-                    if index == 0 && x == "-" {
-                        let next = temp[1]
-                        temp[1] = "-"+next
-                    } else {
-                        leftOperand = Int(tempExpression.popLast()!)!
-                    }
+                    leftOperand = Int(tempExpression.popLast()!)!
                 } else {
                     if leftOperand == -1 {
                         tempExpression.append(x)
