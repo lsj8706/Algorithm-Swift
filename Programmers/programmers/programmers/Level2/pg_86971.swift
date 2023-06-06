@@ -10,29 +10,26 @@
 import Foundation
 
 func solve86971() {
-    print(solution(3, [[1,2], [2, 3]]))
+    print(solution(9, [[3,4],[4,5],[4,6],[1,3],[2,3],[4,7],[7,8],[7,9]]))
 }
 
 fileprivate func solution(_ n:Int, _ wires:[[Int]]) -> Int {
     var result = Int.max
-    var map = [Int: [Int]]()
+    var map = Array(repeating: [Int](), count: n+1)
     let totalNodesCnt = n
     
     for wire in wires {
-        var arr = map[wire[0], default: []]
-        map[wire[0]] = arr + [wire[1]]
-        
-        arr = map[wire[1], default: []]
-        map[wire[1]] = arr + [wire[0]]
+        map[wire[0]].append(wire[1])
+        map[wire[1]].append(wire[0])
     }
     
     // 하나씩 연결을 끊으면서 완전 탐색
     for wire in wires {
         var temp = map
-        temp[wire[0]] = temp[wire[0], default: []].filter{ $0 != wire[1] }
-        temp[wire[1]] = temp[wire[1], default: []].filter{ $0 != wire[0] }
+        temp[wire[0]] = temp[wire[0]].filter{ $0 != wire[1] }
+        temp[wire[1]] = temp[wire[1]].filter{ $0 != wire[0] }
         // 연결된 노드 개수 구하기 (한쪽 뭉치의 개수만 구하면 다른 쪽은 자동으로 계산 됨)
-        let cnt = getNodesCnt(map: temp)
+        let cnt = getNodesCnt(map: temp, n: n)
         let otherSideCnt = totalNodesCnt - cnt
         result = min(result, abs(cnt - otherSideCnt))
     }
@@ -40,16 +37,16 @@ fileprivate func solution(_ n:Int, _ wires:[[Int]]) -> Int {
     return result
 }
 
-fileprivate func getNodesCnt(map: [Int: [Int]]) -> Int {
+fileprivate func getNodesCnt(map: [[Int]], n: Int) -> Int {
     var cnt = 1
-    let firstNode = map.keys.first!
+    var firstNode = 1
     var queue: [Int] = [firstNode]
-    var ch = Array(repeating: false, count: 100)
+    var ch = Array(repeating: false, count: n+1)
     ch[firstNode] = true
     
     while !queue.isEmpty {
         let node = queue.removeFirst()
-        let arr = map[node, default: []]
+        let arr = map[node]
 
         for newNode in arr {
             if ch[newNode] { continue }
