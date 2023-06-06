@@ -26,7 +26,7 @@ fileprivate func solution(_ rows:Int, _ columns:Int, _ queries:[[Int]]) -> [Int]
     var result = [Int]()
     
     for query in queries {
-        var temp = map
+        let temp = map
         let x1 = query[0]-1
         let y1 = query[1]-1
         let x2 = query[2]-1
