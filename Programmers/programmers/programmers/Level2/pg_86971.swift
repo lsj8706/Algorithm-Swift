@@ -39,7 +39,7 @@ fileprivate func solution(_ n:Int, _ wires:[[Int]]) -> Int {
 
 fileprivate func getNodesCnt(map: [[Int]], n: Int) -> Int {
     var cnt = 1
-    var firstNode = 1
+    let firstNode = 1
     var queue: [Int] = [firstNode]
     var ch = Array(repeating: false, count: n+1)
     ch[firstNode] = true
