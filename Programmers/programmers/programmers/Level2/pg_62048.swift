@@ -9,7 +9,7 @@
 
 import Foundation
 
-func pg62048() {
+func solve62048() {
     print(solution(8, 12))
 }
 
