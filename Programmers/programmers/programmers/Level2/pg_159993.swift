@@ -61,10 +61,7 @@ fileprivate func solution(_ maps:[String]) -> Int {
     }
     
     func isInRange(x: Int, y: Int) -> Bool {
-        if x >= 0 && x < maps.count && y >= 0 && y < maps[0].count {
-            return true
-        }
-        return false
+        return x >= 0 && x < maps.count && y >= 0 && y < maps[0].count
     }
     
     guard let cntToLever = bfs(x: startCoord.x, y: startCoord.y, target: "L") else { return -1 }
