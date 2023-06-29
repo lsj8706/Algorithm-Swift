@@ -19,6 +19,10 @@ struct DoubleStackQueue<T> {
         return outbox.reversed() + inbox
     }
     
+    var count: Int {
+        return inbox.count + outbox.count
+    }
+    
     init() {}
     
     init(array: [T]) {
