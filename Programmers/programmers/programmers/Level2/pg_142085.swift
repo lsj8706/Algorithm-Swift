@@ -15,28 +15,45 @@ func solve142085() {
 }
 
 fileprivate func solution(_ n:Int, _ k:Int, _ enemy:[Int]) -> Int {
-    
     var result = 0
+ 
+    func canDefence(index: Int) -> Bool {
+        let enemySlice = enemy[0...index].sorted(by: >)
+        var soldiers = n
+        
+        for (i, enemyCnt) in enemySlice.enumerated() {
+            if i < k { continue }   // 무적권 사용
+            
+            soldiers -= enemyCnt
+            
+            if soldiers < 0 {
+                return false
+            }
+        }
+        
+        return true
+    }
     
-    func dfs(i: Int, soldiers: Int, chance: Int) {
-        if i == enemy.count && soldiers >= 0 {
-            result = i
-            return
-        }
+    var left = 0
+    var right = enemy.count
+    
+    while left < right {
+        let mid = (left + right) / 2
         
-        if soldiers <= 0 {
-            result = max(result, i-1)
-            return
-        }
-        
-        dfs(i: i+1, soldiers: soldiers-enemy[i], chance: chance)
-        
-        if chance >= 1 {
-            dfs(i: i+1, soldiers: soldiers, chance: chance-1)
+        if canDefence(index: mid) {
+            left = mid + 1
+        } else {
+            right = mid
         }
     }
     
-    dfs(i: 0, soldiers: n, chance: k)
+    result = left
     
     return result
 }
+
+
+
+//  참고: https://ksb-dev.tistory.com/257
+//  파라메트릭 서치(Parametric Search)
+//  이분 탐색을 통해 범위를 좁혀 나가며 해답을 찾는다. (이 문제에서는 라운드의 범위를 좁혀 나간다.)
