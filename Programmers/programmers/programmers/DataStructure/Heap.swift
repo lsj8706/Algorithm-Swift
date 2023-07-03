@@ -7,8 +7,7 @@
 
 import Foundation
 
-/// MaxHeap.
-/// MinHeap으로 사용하고 싶다면 음수로 변환하고 insert 할 것.
+
 public struct Heap<T: Comparable> {
     private var elements: [T] = []
     var sortFunction: (T, T) -> Bool

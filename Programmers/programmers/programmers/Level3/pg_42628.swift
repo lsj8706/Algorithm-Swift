@@ -16,24 +16,8 @@ func solve42628() {
 
 fileprivate func solution(_ operations:[String]) -> [Int] {
     var result = [Int]()
-    var heap = Heap<Int>(sortFunction: { $0 > $1 })
-    
-    enum HeapSortingMode {
-        case max
-        case min
+    var queue = DoublePriorityQueue<Int>(sortMode: .max)
         
-        var sortFunction: (Int, Int) -> Bool {
-            switch self {
-            case .max:
-                return { $0 > $1 }
-            case .min:
-                return { $0 < $1 }
-            }
-        }
-    }
-    
-    var mode: HeapSortingMode = .max
-    
     for operation in operations {
         let operationArr = operation.split(separator: " ")
         let command = operationArr[0]
@@ -41,49 +25,32 @@ fileprivate func solution(_ operations:[String]) -> [Int] {
         
         switch (command, num) {
         case ("I", _):
-            heap.insert(node: num)
+            queue.enqueue(node: num)
         case ("D", 1):
-            guard !heap.isEmpty else { break }
-            if mode == .max {
-                heap.remove()
-            } else {
-                mode = .max
-                heap.sortFunction = mode.sortFunction
-                heap.reBuildHeap()
-                heap.remove()
-            }
+            guard !queue.isEmpty else { break }
+            queue.dequeueMax()
         case ("D", -1):
-            guard !heap.isEmpty else { break }
-            if mode == .min {
-                heap.remove()
-            } else {
-                mode = .min
-                heap.sortFunction = mode.sortFunction
-                heap.reBuildHeap()
-                heap.remove()
-            }
+            guard !queue.isEmpty else { break }
+            queue.dequeueMin()
         default:
             break
         }
     }
     
-    if heap.isEmpty {
+    if queue.isEmpty {
         return [0, 0]
     }
     
-    let num = heap.remove()!
+    let num = queue.deqeue()!
     result.append(num)
     
-    if heap.isEmpty {
+    if queue.isEmpty {
         return [num, num]
     }
         
-    mode = mode == .max ? .min : .max
+    queue.sortMode.toggle()
     
-    heap.sortFunction = mode.sortFunction
-    heap.reBuildHeap()
-    
-    result.append(heap.remove()!)
+    result.append(queue.deqeue()!)
     
     return result.sorted(by: >)
 }
