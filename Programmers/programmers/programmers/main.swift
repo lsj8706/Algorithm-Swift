@@ -8,7 +8,7 @@
 import Foundation
 
 func main() {
-    solve142085()
+    solve42628()
 }
 
 main()

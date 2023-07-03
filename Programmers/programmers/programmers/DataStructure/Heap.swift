@@ -11,10 +11,10 @@ import Foundation
 /// MinHeap으로 사용하고 싶다면 음수로 변환하고 insert 할 것.
 public struct Heap<T: Comparable> {
     private var elements: [T] = []
-    private let sortFunction: (T, T) -> Bool
+    var sortFunction: (T, T) -> Bool
     
     var isEmpty: Bool {
-        return self.elements.count == 1
+        return self.elements.count <= 1
     }
     var peek: T? {
         if self.isEmpty { return nil }
@@ -83,6 +83,14 @@ public struct Heap<T: Comparable> {
         }
     }
     
+    mutating func reBuildHeap() {
+        if elements.count > 1 {
+            for index in (1...(self.elements.count / 2)).reversed() {
+                self.diveDown(from: index)
+            }
+        }
+    }
+    
     mutating func insert(node: T) {
         if self.elements.isEmpty {
             self.elements.append(node)
@@ -91,6 +99,7 @@ public struct Heap<T: Comparable> {
         self.swimUp(from: self.elements.endIndex - 1)
     }
     
+    @discardableResult
     mutating func remove() -> T? {
         if self.isEmpty { return nil }
         self.elements.swapAt(1, elements.endIndex - 1)
