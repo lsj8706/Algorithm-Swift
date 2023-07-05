@@ -18,26 +18,23 @@ fileprivate func solution(_ begin:String, _ target:String, _ words:[String]) -> 
     
     func bfs() {
         var queue = [String]()
-        var step = Array(repeating: 0, count: words.count)  // 각 단어까지 접근하기 위한 단계를 저장
-        
+        var step = [String: Int]()  // 각 단어까지 접근하기 위한 단계를 저장
+    
         queue.append(begin)
+        step[begin] = 0
         
         while !queue.isEmpty {
             let first = queue.removeFirst()
             
             if first == target {
-                result = min(result, step[words.firstIndex(of: first)!])
+                result = min(result, step[first]!)
                 return
             }
             
-            for (i, word) in words.enumerated() {
-                if step[i] != 0 { continue }
+            for word in words {
+                if step[word] != nil { continue }
                 if isOneAlphabetDifference(word1: first, word2: word) {
-                    if let firstIndex = words.firstIndex(of: first) {
-                        step[i] = step[firstIndex] + 1
-                    } else {
-                        step[i] = 1
-                    }
+                    step[word] = step[first, default: 0] + 1
                     
                     queue.append(word)
                 }
