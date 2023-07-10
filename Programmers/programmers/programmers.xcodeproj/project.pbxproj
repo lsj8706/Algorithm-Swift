@@ -145,6 +145,7 @@
 		CEB02EE62987E61900514B24 /* pg_135808.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB02EE52987E61900514B24 /* pg_135808.swift */; };
 		CEB02EE82987EC9200514B24 /* pg_136798.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB02EE72987EC9200514B24 /* pg_136798.swift */; };
 		CEB02EEA2987EF8A00514B24 /* pg_138477.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB02EE92987EF8A00514B24 /* pg_138477.swift */; };
+		CEB485262A5C23FC0057BE46 /* SwiftDataStructure in Frameworks */ = {isa = PBXBuildFile; productRef = CEB485252A5C23FC0057BE46 /* SwiftDataStructure */; };
 		CEB79CCA299E0A780053C045 /* pg_70129.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB79CC9299E0A780053C045 /* pg_70129.swift */; };
 		CEB79CCC299E0CF10053C045 /* pg_76502.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB79CCB299E0CF10053C045 /* pg_76502.swift */; };
 		CEB98FEA29A35F5A00F20BFF /* pg_131701.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB98FE929A35F5A00F20BFF /* pg_131701.swift */; };
@@ -356,6 +357,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CEB485262A5C23FC0057BE46 /* SwiftDataStructure in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -596,6 +598,9 @@
 			dependencies = (
 			);
 			name = programmers;
+			packageProductDependencies = (
+				CEB485252A5C23FC0057BE46 /* SwiftDataStructure */,
+			);
 			productName = programmers;
 			productReference = CE683F9828AE51A5004A65C6 /* programmers */;
 			productType = "com.apple.product-type.tool";
@@ -624,6 +629,9 @@
 				Base,
 			);
 			mainGroup = CE683F8F28AE51A5004A65C6;
+			packageReferences = (
+				CEB485242A5C23FC0057BE46 /* XCRemoteSwiftPackageReference "SwiftDataStructure" */,
+			);
 			productRefGroup = CE683F9928AE51A5004A65C6 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -966,6 +974,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		CEB485242A5C23FC0057BE46 /* XCRemoteSwiftPackageReference "SwiftDataStructure" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/lsj8706/SwiftDataStructure.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.1.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		CEB485252A5C23FC0057BE46 /* SwiftDataStructure */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CEB485242A5C23FC0057BE46 /* XCRemoteSwiftPackageReference "SwiftDataStructure" */;
+			productName = SwiftDataStructure;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = CE683F9028AE51A5004A65C6 /* Project object */;
 }

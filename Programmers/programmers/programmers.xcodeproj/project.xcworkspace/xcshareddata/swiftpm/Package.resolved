@@ -1,0 +1,14 @@
+{
+  "pins" : [
+    {
+      "identity" : "swiftdatastructure",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/lsj8706/SwiftDataStructure.git",
+      "state" : {
+        "revision" : "2e202d3aee4a91b7b61a3a1661bdfd4c2946398e",
+        "version" : "0.1.1"
+      }
+    }
+  ],
+  "version" : 2
+}
