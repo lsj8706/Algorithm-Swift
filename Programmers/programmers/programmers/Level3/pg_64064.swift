@@ -19,9 +19,9 @@ fileprivate func solution(_ user_id:[String], _ banned_id:[String]) -> Int {
     var matchDict = [Int: [String]]() // key: banId의 index, value: 매칭되는 userIds 어레이
     
     for (i, banId) in banned_id.enumerated() {
-        matchDict[i] = findMatchingId(userIds: user_id, banId: banId)
+        matchDict[i] = findMatchingIds(userIds: user_id, banId: banId)
     }
-    
+        
     func dfs(level: Int, ids: Set<String>) {
         if level != ids.count { return }
         
@@ -36,12 +36,12 @@ fileprivate func solution(_ user_id:[String], _ banned_id:[String]) -> Int {
     }
     
     dfs(level: 0, ids: [])
-    
+        
     return result.count
 }
 
 /// banId에 해당할 수 있는 userId 어레이 반환
-fileprivate func findMatchingId(userIds: [String], banId: String) -> [String] {
+fileprivate func findMatchingIds(userIds: [String], banId: String) -> [String] {
     var ids = [String]()
     
     outer: for userId in userIds {
