@@ -8,6 +8,7 @@
 //  무인도 여행
 
 import Foundation
+import SwiftDataStructure
 
 func solve154540() {
     print(solution(["X591X","X1X5X","X231X", "1XXX1"]))

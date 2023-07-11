@@ -8,6 +8,7 @@
 //  두 큐 합 같게 만들기
 
 import Foundation
+import SwiftDataStructure
 
 func solve118667() {
     print(solution([1, 4], [4, 8]))

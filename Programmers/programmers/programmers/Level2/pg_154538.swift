@@ -8,6 +8,7 @@
 //  숫자 변환하기
 
 import Foundation
+import SwiftDataStructure
 
 func solve154538() {
   print(solution(10, 40, 30))
