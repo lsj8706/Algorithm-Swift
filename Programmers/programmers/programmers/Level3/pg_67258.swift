@@ -27,7 +27,8 @@ fileprivate func solution(_ gems:[String]) -> [Int] {
         result[1] - result[0]
     }
     
-    gemDict[gems[0]] = 1
+    // 구간(범위)의 길이
+    gemDict[gems[0]] = 1   // 첫번째 보석을 넣고 시작 (start와 end가 0부터 시작하기 때문)
     
     while end < gems.count && start <= end {
         if gemDict.keys.count == gemKinds.count {
@@ -39,21 +40,15 @@ fileprivate func solution(_ gems:[String]) -> [Int] {
             let gem = gems[start]
             gemDict[gem, default: 0] -= 1
             
+            // 보석이 0개가 되면 딕셔너리에서 key 삭제
             if gemDict[gem] == 0 {
                 gemDict.removeValue(forKey: gem)
             }
             
             start += 1
         } else {
-            // 더 찾아야 함
+            // 보석의 종류가 부족하기 때문에 범위를 늘려서 더 찾는다.
             end += 1
-            
-            if end >= gems.count {
-                break
-            }
-            
-            let gem = gems[end]
-            gemDict[gem, default: 0] += 1
         }
     }
 
