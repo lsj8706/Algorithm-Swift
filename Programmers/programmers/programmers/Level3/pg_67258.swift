@@ -23,11 +23,11 @@ fileprivate func solution(_ gems:[String]) -> [Int] {
     
     var result = [1, gems.count]
     
+    // 구간(범위)의 길이
     var distance: Int {
         result[1] - result[0]
     }
-    
-    // 구간(범위)의 길이
+
     gemDict[gems[0]] = 1   // 첫번째 보석을 넣고 시작 (start와 end가 0부터 시작하기 때문)
     
     while end < gems.count && start <= end {
