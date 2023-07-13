@@ -14,51 +14,35 @@ func solve12971() {
 }
 
 fileprivate func solution(_ sticker:[Int]) -> Int{
+    if sticker.count == 1 || sticker.count == 2 {
+        return sticker.max()!
+    }
+    
     var answer = 0
     
-    var ch = Array(repeating: false, count: sticker.count)
-
-    func dfs(i: Int, sum: Int) {
-        if i == sticker.count {
-            answer = max(answer, sum)
-            return
-        }
-        
-        if ch[i] == false {
-            let temp = ch
-            ch[i] = true
-            var left = i-1
-            var right = (i + 1) % ch.count
-            
-            // 좌측
-            if i == 0 {
-                left = ch.count - 1
-                ch[left] = true
-            } else {
-                ch[left] = true
-            }
-            
-            // 우측
-            ch[right] = true
-            
-            dfs(i: i+1, sum: sum + sticker[i])
-            
-            // 뜯어낸 부분 복구
-            ch[i] = false
-            if temp[left] == false {
-                ch[left] = false
-            }
-            
-            if temp[right] == false {
-                ch[right] = false
-            }
-        }
-        
-        // 현재 스티커를 뜯지 않고 넘어가는 경우의 수
-        dfs(i: i+1, sum: sum)
-    }
-
-    dfs(i: 0, sum: 0)
+    var dp1 = Array(repeating: 0, count: sticker.count)
+    var dp2 = Array(repeating: 0, count: sticker.count)
     
+    // dp1에서는 첫번째 스티커를 뜯는다. -> 마지막 스티커가 찢어진다. -> 마지막 스티커는 검사할 필요가 사라진다.
+    dp1[0] = sticker[0]
+    dp1[1] = max(sticker[0], sticker[1])
+    
+    for i in 2..<(dp1.count-1) {
+        dp1[i] = max(dp1[i-1], dp1[i-2]+sticker[i])
+    }
+    
+    // dp2에서는 첫번째 스티커를 뜯지 않는다. -> 마지막 스티커를 검사할 필요가 생긴다.
+    dp2[0] = 0
+    dp2[1] = sticker[1]
+    
+    for i in 2..<dp2.count {
+        dp2[i] = max(dp2[i-1], dp2[i-2]+sticker[i])
+    }
+    
+    let maxOfDp1 = dp1[dp1.count-2]
+    let maxOfDp2 = dp2[dp2.count-1]
+    
+    answer = max(maxOfDp1, maxOfDp2)
+
     return answer
 }
