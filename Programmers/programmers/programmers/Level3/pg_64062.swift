@@ -14,11 +14,37 @@ func solve64062() {
 }
 
 fileprivate func solution(_ stones:[Int], _ k:Int) -> Int {
-    var result = 200_000_000
+    var start = 0
+    var end = k - 1
     
-    for i in 0..<(stones.count-k+1) {
-        let subArr = stones[i..<(i+k)]
-        let maxStone = subArr.max()!
+    var maxStone = stones[0...k-1].max()!   // 서브 배열의 최댓값
+    var result = maxStone
+    
+    var dict = [Int: Int]() // key: 돌에 적힌 숫자, value: 해당 숫자가 나온 횟수
+    
+    for i in stones[0...k-1] {
+        dict[i, default: 0] += 1
+    }
+    
+    while end < stones.count-1 {
+        end += 1
+        let endStone = stones[end]
+        dict[endStone, default: 0] += 1
+        
+        maxStone = max(maxStone, endStone)
+        
+        let startStone = stones[start]
+        dict[startStone, default: 0] -= 1
+        
+        if dict[startStone] == 0 {
+            dict.removeValue(forKey: startStone)
+            if startStone == maxStone {
+                maxStone = dict.keys.max()!
+            }
+        }
+        
+        start += 1
+
         result = min(result, maxStone)
     }
     
