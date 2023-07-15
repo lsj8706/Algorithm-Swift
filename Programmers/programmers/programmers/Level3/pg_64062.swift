@@ -14,42 +14,34 @@ func solve64062() {
 }
 
 fileprivate func solution(_ stones:[Int], _ k:Int) -> Int {
+    // 징검다리를 건너는 사람 수로 이분 탐색
     var start = 0
-    var end = k - 1
+    var end = 200_000_000
     
-    var maxStone = stones[0...k-1].max()!   // 서브 배열의 최댓값
-    var result = maxStone
-    
-    var dict = [Int: Int]() // key: 돌에 적힌 숫자, value: 해당 숫자가 나온 횟수
-    
-    for i in stones[0...k-1] {
-        dict[i, default: 0] += 1
-    }
-    
-    while end < stones.count-1 {
-        end += 1
-        let endStone = stones[end]
-        dict[endStone, default: 0] += 1
+    while start <= end {
+        let mid = (start + end) / 2
+        var cnt = 0
         
-        maxStone = max(maxStone, endStone)
-        
-        let startStone = stones[start]
-        dict[startStone, default: 0] -= 1
-        
-        if dict[startStone] == 0 {
-            dict.removeValue(forKey: startStone)
-            if startStone == maxStone {
-                maxStone = dict.keys.max()!
+        var canMove = true
+        for i in 0..<stones.count {
+            if stones[i] - mid <= 0 {
+                cnt += 1
+            } else {
+                cnt = 0
+            }
+            
+            if cnt >= k {
+                canMove = false
+                break
             }
         }
         
-        start += 1
-
-        result = min(result, maxStone)
+        if canMove {
+            start = mid + 1
+        } else {
+            end = mid - 1
+        }
     }
     
-    return result
+    return start
 }
-
-// 길이가 k개인 서브 배열의 원소들의 최댓값을 구한다.
-// 모든 서브 배열의 최댓값 중에서 가장 작은 값을 찾는다. => 이 값이 정답이다.
