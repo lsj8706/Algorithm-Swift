@@ -21,15 +21,15 @@ fileprivate func solution(_ n:Int, _ edge:[[Int]]) -> Int {
         graph[vertex[1]].append(vertex[0])
     }
     
-    var visited = Array(repeating: -1, count: n+1)
+    var distance = Array(repeating: -1, count: n+1)
     
     var queue = [Int]()
     
-    visited[1] = 0
+    distance[1] = 0
     
     // 1번 노드와 연결된 노드들을 큐에 넣는다.
     for i in graph[1] {
-        visited[i] = 1
+        distance[i] = 1
         queue.append(i)
     }
     
@@ -38,15 +38,15 @@ fileprivate func solution(_ n:Int, _ edge:[[Int]]) -> Int {
         let first = queue.removeFirst()
         
         for i in graph[first] {
-            if visited[i] == -1 {
-                visited[i] = visited[first] + 1
+            if distance[i] == -1 {
+                distance[i] = distance[first] + 1
                 queue.append(i)
             }
         }
     }
     
     // 1번 노드로부터 가장 멀리 떨어지 노드까지의 거리
-    let farthestDistance = visited.max()!
+    let farthestDistance = distance.max()!
     
-    return visited.filter { $0 == farthestDistance }.count
+    return distance.filter { $0 == farthestDistance }.count
 }
