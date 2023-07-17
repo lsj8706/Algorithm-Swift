@@ -14,11 +14,11 @@ func solve49189() {
 }
 
 fileprivate func solution(_ n:Int, _ edge:[[Int]]) -> Int {
-    var graph = Array(repeating: Array(repeating: false, count: n+1), count: n+1)
+    var graph = Array(repeating: [Int](), count: n+1)
     
     for vertex in edge {
-        graph[vertex[0]][vertex[1]] = true
-        graph[vertex[1]][vertex[0]] = true
+        graph[vertex[0]].append(vertex[1])
+        graph[vertex[1]].append(vertex[0])
     }
     
     var visited = Array(repeating: -1, count: n+1)
@@ -27,25 +27,26 @@ fileprivate func solution(_ n:Int, _ edge:[[Int]]) -> Int {
     
     visited[1] = 0
     
-    for i in 1..<n+1 {
-        if graph[1][i] == true {
-            visited[i] = 1
-            queue.append(i)
-        }
+    // 1번 노드와 연결된 노드들을 큐에 넣는다.
+    for i in graph[1] {
+        visited[i] = 1
+        queue.append(i)
     }
     
+    // BFS
     while !queue.isEmpty {
         let first = queue.removeFirst()
         
-        for i in 1..<n+1 {
-            if graph[first][i] == true && visited[i] == -1 {
+        for i in graph[first] {
+            if visited[i] == -1 {
                 visited[i] = visited[first] + 1
                 queue.append(i)
             }
         }
     }
     
-    let farthestNodes = visited.max()!
+    // 1번 노드로부터 가장 멀리 떨어지 노드까지의 거리
+    let farthestDistance = visited.max()!
     
-    return visited.filter { $0 == farthestNodes }.count
+    return visited.filter { $0 == farthestDistance }.count
 }
