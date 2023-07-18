@@ -33,8 +33,9 @@ fileprivate func solution(_ n:Int, _ costs:[[Int]]) -> Int {
     for cost in costs {
         let node1 = cost[0]
         let node2 = cost[1]
+        // 두 노드가 속한 집합(그래프)이 다를 때 연결 가능 (같은 집합에 속한다면 사이클이 발생!)
         if find(&parent, node1) != find(&parent, node2) {
-            union(&parent, node1, node2)
+            union(&parent, node1, node2) // 연결
             result += cost[2]
         }
     }
@@ -55,7 +56,7 @@ fileprivate func find(_ parent: inout [Int], _ index: Int) -> Int {
     return parent[index]
 }
 
-/// 두 노드를 합친다. => 하나의 그래프로 만든다. (두 노드의 부모 노드끼리 연결하면 결국 두 노드를 합치는 꼴이 된다.)
+/// 두 노드가 속한 집합을 합친다. => 하나의 그래프로 만든다. (두 노드의 부모 노드끼리 연결하면 결국 두 집합을 합치는 꼴이 된다.)
 fileprivate func union(_ parent: inout [Int], _ a: Int, _ b: Int) {
     let parentOfA = find(&parent, a)
     let parentOfB = find(&parent, b)
