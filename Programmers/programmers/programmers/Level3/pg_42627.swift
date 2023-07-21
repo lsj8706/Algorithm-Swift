@@ -15,7 +15,7 @@ func solve42627() {
 }
 
 fileprivate func solution(_ jobs:[[Int]]) -> Int {
-    var jobs = Array(jobs.reversed())
+    var jobs = jobs.sorted(by: { $0[0] >= $1[0] })
     let count = jobs.count
     var currentTime = 0
     var heap = Heap<Job>(sortFunction: <)
@@ -26,13 +26,15 @@ fileprivate func solution(_ jobs:[[Int]]) -> Int {
             heap.insert(Job(job: jobs.removeLast()))
         }
         
-        let nextJob = heap.remove()!
-        
-        let endTime = currentTime + nextJob.requiredTime
-        
-        totalTime += endTime - nextJob.inputTime
-        
-        currentTime = endTime
+        if let nextJob = heap.remove() {
+            let endTime = currentTime + nextJob.requiredTime
+            
+            totalTime += endTime - nextJob.inputTime
+            
+            currentTime = endTime
+        } else {
+            currentTime = jobs.last![0]
+        }
     }
     
     return totalTime / count
@@ -43,7 +45,11 @@ fileprivate struct Job: Comparable {
     var requiredTime: Int
     
     static func < (lhs: Job, rhs: Job) -> Bool {
-        lhs.requiredTime < rhs.requiredTime
+        if lhs.requiredTime == rhs.requiredTime {
+            return lhs.inputTime < rhs.inputTime
+        }
+        
+        return lhs.requiredTime < rhs.requiredTime
     }
     
     init(job: [Int]) {
