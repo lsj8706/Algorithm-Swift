@@ -26,7 +26,7 @@ public struct DoublePriorityQueue<T: Comparable> {
         }
     }
     
-    var heap: Heap<T>
+    var heap: CustomHeap<T>
     
     var sortMode: HeapSortMode {
         didSet {
@@ -44,7 +44,7 @@ public struct DoublePriorityQueue<T: Comparable> {
     }
     
     public init(elements: [T] = [], sortMode: HeapSortMode) {
-        self.heap = Heap<T>(elements: elements, sortFunction: sortMode.sortFunction)
+        self.heap = CustomHeap<T>(elements: elements, sortFunction: sortMode.sortFunction)
         self.sortMode = sortMode
     }
     

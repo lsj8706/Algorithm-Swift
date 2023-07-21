@@ -8,6 +8,7 @@
 //  디펜스 게임
 
 import Foundation
+import SwiftDataStructure
 
 func solve142085() {
     print(solution(7, 3, [4, 2, 4, 5, 3, 3, 1]))
@@ -19,7 +20,7 @@ fileprivate func solution(_ n:Int, _ k:Int, _ enemy:[Int]) -> Int {
     var n = n
     var k = k
     
-    var heap = Heap<Int>(sortFunction: { $0 > $1 })
+    var heap = CustomHeap<Int>(sortFunction: { $0 > $1 })
     
     for (i, enemyCnt) in enemy.enumerated() {
         heap.insert(node: enemyCnt)

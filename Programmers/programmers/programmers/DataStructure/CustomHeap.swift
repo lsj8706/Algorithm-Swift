@@ -1,5 +1,5 @@
 //
-//  Heap.swift
+//  CustomHeap.swift
 //  programmers
 //
 //  Created by sejin on 2023/07/01.
@@ -8,7 +8,7 @@
 import Foundation
 
 
-public struct Heap<T: Comparable> {
+public struct CustomHeap<T: Comparable> {
     private var elements: [T] = []
     var sortFunction: (T, T) -> Bool
     
