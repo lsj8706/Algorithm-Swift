@@ -73,12 +73,6 @@ fileprivate extension String {
 
 fileprivate extension Int {
     var toTimeString: String {
-        let hours = self / 60
-        let minutes = self % 60
-        var time = ""
-        hours < 10 ? time.append("0\(hours)") : time.append("\(hours)")
-        time.append(":")
-        minutes < 10 ? time.append("0\(minutes)") : time.append("\(minutes)")
-        return time
+        return String(format: "%02d:%02d", self/60, self%60)
     }
 }
