@@ -46,12 +46,7 @@ fileprivate func solution(_ n:Int, _ t:Int, _ m:Int, _ timetable:[String]) -> St
             // 셔틀의 마지막 자리에 타도록 하면 됨
             // 1. 자리가 널널하다면 셔틀의 도착시간에 줄 서도록
             // 2. 자리가 부족하다면 마지막 사람보다 1분 더 일찍 오도록
-            if timetable.count < m {
-                result = lastSuttleTime
-                break
-            }
-            
-            if timetable[m-1] > lastSuttleTime {
+            if timetable.count < m || timetable[m-1] > lastSuttleTime {
                 result = lastSuttleTime
             } else {
                 result = timetable[m-1] - 1
