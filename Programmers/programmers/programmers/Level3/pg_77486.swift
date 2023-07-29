@@ -15,12 +15,12 @@ func solve77486() {
 
 fileprivate func solution(_ enroll:[String], _ referral:[String], _ seller:[String], _ amount:[Int]) -> [Int] {
     var resultDict = [String: Int]()    // key: 판매원 이름, value: 이익금
-    var graph = [String: String]() // Key: 판매원 이름, value: 판매원을 참여시킨 추천인 이름
+    var tree = [String: String]() // Key: 판매원 이름, value: 판매원을 참여시킨 추천인 이름
     
     for i in 0..<enroll.count {
         let person = enroll[i]
         resultDict[person] = 0
-        graph[person] = referral[i]
+        tree[person] = referral[i]
     }
     
     // 이익을 분배하는 함수 (추천인들에게도 10퍼센트씩 분배)
@@ -35,7 +35,7 @@ fileprivate func solution(_ enroll:[String], _ referral:[String], _ seller:[Stri
         
         resultDict[name, default: 0] += currentSellerProfit
         
-        let parent = graph[name]! // parent는 추천인을 의미
+        let parent = tree[name]! // parent는 추천인을 의미
 
         if parent != "-" {
             distributeProfits(name: parent, profits: profitsForParent)
