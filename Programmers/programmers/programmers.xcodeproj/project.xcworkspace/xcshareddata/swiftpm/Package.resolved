@@ -5,8 +5,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/lsj8706/SwiftDataStructure.git",
       "state" : {
-        "revision" : "8e442b2f4c4621e740293f0bfb564bab58ece007",
-        "version" : "0.8.0"
+        "revision" : "5912f564f9fe1b709b87c03f780aa1e2a9645063",
+        "version" : "1.0.0"
       }
     }
   ],
