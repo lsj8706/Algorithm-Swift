@@ -15,17 +15,36 @@ func solve92344() {
 
 fileprivate func solution(_ board:[[Int]], _ skill:[[Int]]) -> Int {
     var board = board
-    var degrees = Array(repeating: Array(repeating: 0, count: board[0].count), count: board.count)
+    let n = board.count
+    let m = board[0].count
+    var degrees = Array(repeating: Array(repeating: 0, count: m+1), count: n+1)
     
     for _skill in skill {
         handleSkill(degrees: &degrees, skill: _skill)
     }
     
-    for x in 0..<degrees.count {
-        var prefixSum = 0
-        for y in 0..<degrees[0].count {
-            prefixSum += degrees[x][y]
-            board[x][y] += prefixSum
+    // 가로 누적합
+    for x in 0..<n+1 {
+        var sum = 0
+        for y in 0..<m+1 {
+            sum += degrees[x][y]
+            degrees[x][y] = sum
+        }
+    }
+    
+    // 세로 누적합
+    for y in 0..<m+1 {
+        var sum = 0
+        for x in 0..<n+1 {
+            sum += degrees[x][y]
+            degrees[x][y] = sum
+        }
+    }
+    
+    // board에 누적합 적용
+    for x in 0..<n {
+        for y in 0..<m {
+            board[x][y] += degrees[x][y]
         }
     }
  
@@ -34,16 +53,16 @@ fileprivate func solution(_ board:[[Int]], _ skill:[[Int]]) -> Int {
 
 fileprivate func handleSkill(degrees: inout [[Int]], skill: [Int]) {
     let skill = Skill(skill)
+    let degree = skill.degree
+    let startX = skill.startPoint.x
+    let startY = skill.startPoint.y
+    let endX = skill.endPoint.x
+    let endY = skill.endPoint.y
     
-    for x in skill.xRange {
-        let left = skill.startPoint.y
-        let right = skill.endPoint.y
-        degrees[x][left] += skill.effect()
-        
-        if right + 1 < degrees[0].count {
-            degrees[x][right+1] -= skill.effect()
-        }
-    }
+    degrees[startX][startY] += degree
+    degrees[startX][endY+1] += degree * -1
+    degrees[endX+1][startY] += degree * -1
+    degrees[endX+1][endY+1] += degree
 }
 
 fileprivate enum SkillType: Int {
@@ -55,24 +74,15 @@ fileprivate struct Skill {
     let skillType: SkillType
     let startPoint: (x: Int, y: Int)
     let endPoint: (x: Int, y: Int)
-    let degree: Int
-    
-    var xRange: ClosedRange<Int> {
-        self.startPoint.x...self.endPoint.x
-    }
-    
-    var yRange: ClosedRange<Int> {
-        self.startPoint.y...self.endPoint.y
+    let _degree: Int
+    var degree: Int {
+        return skillType == .attack ? _degree * -1 : _degree
     }
     
     init(_ skill: [Int]) {
         self.skillType = SkillType(rawValue: skill[0])!
         self.startPoint = (skill[1], skill[2])
         self.endPoint = (skill[3], skill[4])
-        self.degree = skill[5]
-    }
-    
-    func effect() -> Int {
-        return skillType == .attack ? degree * -1 : degree
+        self._degree = skill[5]
     }
 }
