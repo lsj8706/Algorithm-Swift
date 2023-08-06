@@ -15,20 +15,33 @@ func solve92344() {
 
 fileprivate func solution(_ board:[[Int]], _ skill:[[Int]]) -> Int {
     var board = board
+    var degrees = Array(repeating: Array(repeating: 0, count: board[0].count), count: board.count)
     
     for _skill in skill {
-        handleSkill(board: &board, skill: _skill)
+        handleSkill(degrees: &degrees, skill: _skill)
     }
-        
+    
+    for x in 0..<degrees.count {
+        var prefixSum = 0
+        for y in 0..<degrees[0].count {
+            prefixSum += degrees[x][y]
+            board[x][y] += prefixSum
+        }
+    }
+ 
     return board.flatMap { $0 }.filter { $0 > 0 }.count
 }
 
-fileprivate func handleSkill(board: inout [[Int]], skill: [Int]) {
+fileprivate func handleSkill(degrees: inout [[Int]], skill: [Int]) {
     let skill = Skill(skill)
     
     for x in skill.xRange {
-        for y in skill.yRange {
-            board[x][y] += skill.effect()
+        let left = skill.startPoint.y
+        let right = skill.endPoint.y
+        degrees[x][left] += skill.effect()
+        
+        if right + 1 < degrees[0].count {
+            degrees[x][right+1] -= skill.effect()
         }
     }
 }
