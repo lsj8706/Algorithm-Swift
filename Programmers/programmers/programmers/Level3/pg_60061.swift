@@ -14,72 +14,91 @@ func solve60061() {
     print(solution(5, [[0,0,0,1],[2,0,0,1],[4,0,0,1],[0,1,1,1],[1,1,1,1],[2,1,1,1],[3,1,1,1],[2,0,0,0],[1,1,1,0],[2,2,0,1]]))
 }
 
-fileprivate func solution(_ n:Int, _ build_frame:[[Int]]) -> [[Int]] {
-    var result: [(x: Int, y: Int, isPillar: Bool)] = []
+fileprivate func solution(_ n:Int, _ build_frame: [[Int]]) -> [[Int]] {
+    //  map[x][y][a] (a가 0이면 기둥, 1이면 보)
+    //  만약 map[2][2][0] = 0 이면 (2,2)위치에 기둥이 없다는 의미
+    var map: [[[Int]]] = Array(repeating: Array(repeating: Array(repeating: 0, count: 2), count: n+1), count: n+1)
     
     for buildData in build_frame {
         let x = buildData[0]
         let y = buildData[1]
-        let isPillar = buildData[2] == 0
+        let a = buildData[2]
         let isInstall = buildData[3] == 1
-        
+
         if isInstall {
             // 설치
-            result.append((x: x, y: y, isPillar: isPillar))
-            if !isPossible(arr: result) {
-                result.removeLast()
+            if a == 0 {
+                if checkPillar(map: map, x: x, y: y) {
+                    map[y][x][0] = 1
+                }
+            } else {
+                if checkBeam(map: map, x: x, y: y) {
+                    map[y][x][1] = 1
+                }
             }
         } else {
             // 삭제
-            var temp = result
-            temp.removeAll(where: { $0 == (x: x, y: y, isPillar: isPillar) })
-            if isPossible(arr: temp) {
-                result.removeAll(where: { $0 == (x: x, y: y, isPillar: isPillar) })
+            map[y][x][a] = 0
+            if !checkEntireMap(n: n, map: map) {
+                map[y][x][a] = 1
+            }
+        }
+    }
+
+    var result = [[Int]]()
+    
+    for y in 0...n {
+        for x in 0...n {
+            for a in 0...1 {
+                if map[y][x][a] == 1 {
+                    result.append([x, y, a])
+                }
             }
         }
     }
     
-    let answer = result
-                    .map { [$0.x, $0.y, $0.isPillar ? 0 : 1] }
-                    .sorted(by: {
-                        if $0[0] == $1[0] {
-                            if $0[1] == $1[1] {
-                                return $0[2] < $1[2]
-                            }
-                            return $0[1] < $1[1]
-                        }
-                        
-                        return $0[0] < $1[0]
-                    })
+    result = result.sorted(by: {
+        if $0[0] == $1[0] {
+            if $0[1] == $1[1] {
+                return $0[2] < $1[2]
+            }
+            return $0[1] < $1[1]
+        }
+        return $0[0] < $1[0]
+    })
 
-    return answer
+
+    return result
 }
 
-fileprivate func isPossible(arr: [(x: Int, y: Int, isPillar: Bool)]) -> Bool {
-    for (x, y, isPillar) in arr {
-        if isPillar { // 기둥일 때
-            // 바닥에 설치 or 다른 기둥 위에 설치 or 보 위에 설치
-            if y == 0
-                || arr.contains(where: { $0 == (x, y-1, true) })
-                || arr.contains(where: { $0 == (x-1, y, false) })
-                || arr.contains(where: { $0 == (x, y, false) }) {
-                continue
+fileprivate func checkPillar(map: [[[Int]]], x: Int, y: Int) -> Bool {
+    if y == 0 || map[y-1][x][0] == 1 || map[y][x][1] == 1 || (x-1 >= 0 && map[y][x-1][1] == 1) {
+        return true
+    }
+    
+    return false
+}
+
+fileprivate func checkBeam(map: [[[Int]]], x: Int, y: Int) -> Bool {
+    if map[y-1][x][0] == 1 || (x+1 < map.count && map[y-1][x+1][0] == 1) || (x-1 >= 0 && x < map.count && map[y][x-1][1] == 1 && map[y][x+1][1] == 1) {
+        return true
+    }
+    
+    return false
+}
+
+fileprivate func checkEntireMap(n: Int, map: [[[Int]]]) -> Bool {
+    for y in 0...n {
+        for x in 0...n {
+            // 기둥일 때
+            if map[y][x][0] == 1 && !checkPillar(map: map, x: x, y: y) {
+                return false
             }
             
-            if arr.count == 6 {
-                print(arr)
+            // 보일 때
+            if map[y][x][1] == 1 && !checkBeam(map: map, x: x, y: y) {
+                return false
             }
-            
-            return false
-        } else {    // 보일 때
-            // 한쪽 끝이 기둥 위 or 양쪽 끝이 보랑 연결
-            if arr.contains(where: { $0 == (x, y-1, true) })
-                || arr.contains(where: { $0 == (x+1, y-1, true) })
-                || (arr.contains(where: { $0 == (x-1, y, false) }) && arr.contains(where: { $0 == (x+1, y, false) })) {
-                continue
-            }
-            
-            return false
         }
     }
     
