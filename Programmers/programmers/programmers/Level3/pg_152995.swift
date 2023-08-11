@@ -13,14 +13,13 @@ func solve152995() {
 //    print(solution([[2,2],[1,4],[3,2],[3,2],[2,1]]))
 //    print(solution([[4, 0], [2, 5], [5, 3], [2, 6]]))
 //    print(solution([[4,1],[2,4],[3,5]]))
-//    print(solution([[100,1],[100,2],[50,1]]))
-    print(solution([[3, 1], [1, 4], [2, 3], [2, 3], [1, 5], [1, 0], [1, 0]]))
+    print(solution([[100,1],[100,2],[50,1]]))
 }
 
 fileprivate func solution(_ scores:[[Int]]) -> Int {
     let target = scores[0] // 완호의 점수
     
-    let attitudeScoreAscendingSorted = scores.sorted(by: { $0[0] > $1[0] })
+    let attitudeScoreAscendingSorted = scores.sorted(by: { $0[0] > $1[0] || ($0[0] == $1[0] && $0[1] < $1[1]) })
     
     var prevAttitudeScore = attitudeScoreAscendingSorted.first![0]
     var maxPeerEvaluationScore = attitudeScoreAscendingSorted.first![1]
