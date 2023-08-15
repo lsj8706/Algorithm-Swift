@@ -11,14 +11,14 @@ import Foundation
 
 func solve72414() {
     print(solution("02:03:55", "00:14:15", ["01:20:15-01:45:14", "00:40:31-01:00:00", "00:25:50-00:48:29", "01:30:59-01:53:29", "01:37:44-02:02:30"]))
-    print(solution("99:59:59", "25:00:00", ["69:59:59-89:59:59", "01:00:00-21:00:00", "79:59:59-99:59:59", "11:00:00-31:00:00"]))
-    print(solution("50:00:00", "50:00:00", ["15:36:51-38:21:49", "10:14:18-15:36:51", "38:21:49-42:51:45"]))
+//    print(solution("99:59:59", "25:00:00", ["69:59:59-89:59:59", "01:00:00-21:00:00", "79:59:59-99:59:59", "11:00:00-31:00:00"]))
+//    print(solution("50:00:00", "50:00:00", ["15:36:51-38:21:49", "10:14:18-15:36:51", "38:21:49-42:51:45"]))
 }
 
 fileprivate func solution(_ play_time:String, _ adv_time:String, _ logs:[String]) -> String {
     let totalSeconds = play_time.toSeconds
 
-    var prefixSum = Array(repeating: 0, count: totalSeconds+2)    // 시청자 수 누적합 기록
+    var prefixSum = Array(repeating: 0, count: totalSeconds+1)    // 시청자 수 누적합 기록
     
     for log in logs {
         let logArr = log.components(separatedBy: "-")
@@ -29,7 +29,7 @@ fileprivate func solution(_ play_time:String, _ adv_time:String, _ logs:[String]
         prefixSum[endTime] -= 1
     }
     
-    var viewerCntByTime = Array(repeating: 0, count: totalSeconds+2) // 영상의 재생 시간에서의 시청자 수
+    var viewerCntByTime = Array(repeating: 0, count: totalSeconds+1) // 영상의 재생 시간에서의 시청자 수
     
     var sum = 0
     for i in viewerCntByTime.indices {
