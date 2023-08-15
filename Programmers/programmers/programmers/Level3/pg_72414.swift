@@ -10,13 +10,11 @@
 import Foundation
 
 func solve72414() {
-//    print(solution("02:03:55", "00:14:15", ["01:20:15-01:45:14", "00:40:31-01:00:00", "00:25:50-00:48:29", "01:30:59-01:53:29", "01:37:44-02:02:30"]))
+    print(solution("02:03:55", "00:14:15", ["01:20:15-01:45:14", "00:40:31-01:00:00", "00:25:50-00:48:29", "01:30:59-01:53:29", "01:37:44-02:02:30"]))
     print(solution("99:59:59", "25:00:00", ["69:59:59-89:59:59", "01:00:00-21:00:00", "79:59:59-99:59:59", "11:00:00-31:00:00"]))
-//    print(solution("50:00:00", "50:00:00", ["15:36:51-38:21:49", "10:14:18-15:36:51", "38:21:49-42:51:45"]))
+    print(solution("50:00:00", "50:00:00", ["15:36:51-38:21:49", "10:14:18-15:36:51", "38:21:49-42:51:45"]))
 }
 
-// 1. 누적합
-// 2. 누적합 배열에서의 크기 고정의 subArr의 쵀댓값
 fileprivate func solution(_ play_time:String, _ adv_time:String, _ logs:[String]) -> String {
     let totalSeconds = play_time.toSeconds
 
@@ -36,26 +34,23 @@ fileprivate func solution(_ play_time:String, _ adv_time:String, _ logs:[String]
     var sum = 0
     for i in viewerCntByTime.indices {
         sum += prefixSum[i]
-        viewerCntByTime[i+1] = sum
+        viewerCntByTime[i] = sum
     }
     
     let adTotalSeconds = adv_time.toSeconds
-    var adStartTime = 0
-    var adEndTime = adTotalSeconds-1
-    var result = adStartTime
+    var result = 0
     
-    var currentAdViewerShip = viewerCntByTime[0...adTotalSeconds].reduce(0, +)
+    var currentAdViewerShip = viewerCntByTime[0...(adTotalSeconds-1)].reduce(0, +)
     var maxAdViewerShip = currentAdViewerShip  // 광고 시청자 수의 최댓값
     
-    while adEndTime < totalSeconds {
+    for adStartTime in 0...totalSeconds-adTotalSeconds {
+        let adEndTime = adStartTime + adTotalSeconds - 1
+
         currentAdViewerShip = currentAdViewerShip - viewerCntByTime[adStartTime] + viewerCntByTime[adEndTime+1]
-        
-        adStartTime += 1
-        adEndTime += 1
-        
+                
         if currentAdViewerShip > maxAdViewerShip {
             maxAdViewerShip = currentAdViewerShip
-            result = adStartTime
+            result = adStartTime+1
         }
     }
     
