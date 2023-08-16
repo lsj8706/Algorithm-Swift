@@ -30,7 +30,7 @@ fileprivate func solution(_ info:[Int], _ edges:[[Int]]) -> Int {
         var sheepCnt = sheepCnt
         var wolfCnt = wolfCnt
         var possibleNodes = possibleNodes
- 
+        
         if isSheep(cur) {
             sheepCnt += 1
         } else {
