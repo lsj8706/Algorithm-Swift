@@ -11,73 +11,78 @@ import Foundation
 
 func solve60062() {
     print(solution(12, [1, 5, 6, 10], [1, 2, 3, 4]))
+//    print(solution(12, [1, 3, 4, 9, 10], [3, 5, 7]))
+//    print(solution(200, [0, 10, 50, 80, 120, 160], [1, 10, 5, 40, 30]))
 }
 
 fileprivate func solution(_ n:Int, _ weak:[Int], _ dist:[Int]) -> Int {
-    let dist = dist.sorted(by: >)
-    var repairStatus = [Int: Bool]()
-    
-    for weakPosition in weak {
-        repairStatus[weakPosition] = false
-    }
-    
-    var repairedCnt: Int {
-        repairStatus.values.filter({ $0 == true }).count
-    }
-    
-    var result = -1
-    
-    func coveredPositions(start: Int, dist: Int) -> [Int] {
-        let end = start + dist
-        return weak.filter {
-            if end < n {
-                return $0 >= start && $0 <= end
-            } else {
-                return $0 >= start || $0 <= end % n
-            }
-        }
-    }
-    
-    func findProperPostion(friend: Int) -> Int {
-        var position = 0
-        var maxDistGap = 0
-        var maxCanRepairCnt = 0
+    var extendedWeak = weak
+    weak.forEach { extendedWeak.append($0+n) }
         
-        for weakPosition in weak {
-            if repairStatus[weakPosition] == false {
-                let canRepair = coveredPositions(start: weakPosition, dist: friend)
-                let canRepairCntWithoutDuplicate = canRepair.filter({ repairStatus[$0] == false }).sorted()
-                let canRepairCnt = canRepairCntWithoutDuplicate.count
-                
-                if canRepairCnt >= maxCanRepairCnt {
-                    if canRepairCnt >= 2 {
-                        let distGap = canRepairCntWithoutDuplicate.last! - canRepairCntWithoutDuplicate.first!
-                        if distGap > maxDistGap {
-                            maxDistGap = distGap
-                            maxCanRepairCnt = canRepairCnt
-                            position = weakPosition
-                        }
-                    } else {
-                        position = weakPosition
-                        maxCanRepairCnt = canRepairCnt
+    var result = dist.count + 1
+    
+    let permutationResults = permutation(dist, dist.count)
+    
+    print(permutationResults)
+
+    for i in 0..<weak.count {
+        var start = [Int]()
+        for j in i..<(i+weak.count) {
+            start.append(extendedWeak[j])
+        }
+        
+        for friends in permutationResults {
+            var cnt = 1 // 필요한 친구의 수
+            var coverLength = start[0] + friends[0]
+            
+            for k in 0..<weak.count {
+                // 해당 친구가 커버할 수 있는 범위를 넘은 지점이 있는 경우
+                if start[k] > coverLength {
+                    cnt += 1    // 다음 친구를 불러옴
+                    if cnt > friends.count {   // 친구의 수보다 더 사람이 필요한 경우 -> 불가능하기 때문에 탐색 중지
+                        break
                     }
+                    coverLength = start[k] + friends[cnt-1]
                 }
             }
+            
+            result = min(result, cnt)
         }
-        
-        return position
     }
     
-    for (i, friend) in dist.enumerated() {
-        let position = findProperPostion(friend: friend)
+    if result > dist.count {
+        return -1
+    }
+    
+    return result
+}
+
+fileprivate func permutation<T: Comparable>(_ array: [T], _ n: Int) -> [[T]] {
+    var result = [[T]]()
+    if array.count < n { return result }
+    
+    var stack: [([T], [Bool])] = array.enumerated().map {
+        var visited = Array(repeating: false, count: array.count)
+        visited[$0.offset] = true
+        return ([$0.element], visited)
+    }
+    
+    while stack.count > 0 {
+        let now = stack.removeLast()
         
-        let repairedPositions = coveredPositions(start: position, dist: friend)
+        let elements = now.0
+        var visited = now.1
         
-        repairedPositions.forEach { repairStatus[$0] = true }
+        if elements.count == n {
+            result.append(elements)
+            continue
+        }
         
-        if repairedCnt == weak.count {
-            result = i+1
-            break
+        for i in 0...array.count-1 {
+            if visited[i] { continue }
+            visited[i] = true
+            stack.append((elements + [array[i]], visited))
+            visited[i] = false
         }
     }
     
