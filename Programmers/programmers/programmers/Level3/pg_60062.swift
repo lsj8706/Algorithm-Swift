@@ -23,26 +23,24 @@ fileprivate func solution(_ n:Int, _ weak:[Int], _ dist:[Int]) -> Int {
     
     let permutationResults = permutation(dist, dist.count)
     
-    print(permutationResults)
-
     for i in 0..<weak.count {
-        var start = [Int]()
+        var route = [Int]()
         for j in i..<(i+weak.count) {
-            start.append(extendedWeak[j])
+            route.append(extendedWeak[j])
         }
         
         for friends in permutationResults {
             var cnt = 1 // 필요한 친구의 수
-            var coverLength = start[0] + friends[0]
+            var coverLength = route[0] + friends[0]
             
             for k in 0..<weak.count {
                 // 해당 친구가 커버할 수 있는 범위를 넘은 지점이 있는 경우
-                if start[k] > coverLength {
+                if route[k] > coverLength {
                     cnt += 1    // 다음 친구를 불러옴
                     if cnt > friends.count {   // 친구의 수보다 더 사람이 필요한 경우 -> 불가능하기 때문에 탐색 중지
                         break
                     }
-                    coverLength = start[k] + friends[cnt-1]
+                    coverLength = route[k] + friends[cnt-1]
                 }
             }
             
