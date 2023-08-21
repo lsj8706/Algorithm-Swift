@@ -27,20 +27,28 @@ fileprivate func solution(_ s:[String]) -> [String] {
     return result
 }
 
+// O(N)
 fileprivate func remove110(_ num: String) -> String {
-    var removed = num
+    var stack = [String]()
     
-    while true {
-        let temp = removed.replacingOccurrences(of: "110", with: "")
-        
-        if temp == removed {
-            return removed
+    for _char in num {
+        let char = String(_char)
+        if stack.count < 2 {
+            stack.append(String(char))
+        } else {
+            let pop1 = stack.removeLast()
+            let pop2 = stack.removeLast()
+            let lastThreeWord = pop2 + pop1 + char
+            if lastThreeWord != "110" {
+                stack.append(contentsOf: [pop2, pop1, char])
+            }
         }
-        
-        removed = temp
     }
+    
+    return stack.joined()
 }
 
+// O(N)
 fileprivate func insert110(removedNum: String, cnt: Int) -> String {
     let reversedRemovedNum = Array(removedNum).reversed()
     var result = ""
