@@ -42,38 +42,22 @@ fileprivate func remove110(_ num: String) -> String {
 }
 
 fileprivate func insert110(removedNum: String, cnt: Int) -> String {
-    let removedNum = Array(removedNum)
-    var cnt = cnt   // 110을 넣을 수 있는 기회
+    let reversedRemovedNum = Array(removedNum).reversed()
     var result = ""
-    
-    var i = 0
-    
-    while i < removedNum.count - 2 && cnt > 0 {
-        let nextThreeWord = removedNum[i..<i+3]
+    let target = Array(repeating: "011", count: cnt).joined()
+    var isInserted = false
         
-        if nextThreeWord == ["1", "1", "1"] {
-            result.append("110")
-            cnt -= 1
-        } else {
-            result.append(removedNum[i])
-            i += 1
+    for i in reversedRemovedNum {
+        if i == "0" && !isInserted {
+            result.append(target)
+            isInserted = true
         }
+        result.append(i)
     }
     
-    
-    let remaining = String(removedNum[i...])
-    
-    if !remaining.contains(where: { $0 == "0" }) {
-        for _ in 0..<cnt {
-            result.append("110")
-        }
-        result.append(remaining)
-    } else {
-        result.append(remaining)
-        for _ in 0..<cnt {
-            result.append("110")
-        }
+    if !isInserted {
+        result.append(target)
     }
     
-    return result
+    return String(result.reversed())
 }
