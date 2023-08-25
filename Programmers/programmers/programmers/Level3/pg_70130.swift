@@ -14,63 +14,35 @@ func solve70130() {
 }
 
 fileprivate func solution(_ a:[Int]) -> Int {
-    let startLen = a.count % 2 == 0 ? a.count : a.count - 1
+    var answer = 0
     
-    for len in stride(from: startLen, through: 2, by: -2) {
-        let subsequences = getSubsequence(arr: a, len: len)
+    var cnt = [Int: Int]() // key: a의 요소, value: 해당 key가 a에 몇개 존재하는지 개수를 저장
+    
+    for num in a {
+        cnt[num, default: 0] += 1
+    }
+    
+    for num in cnt.keys {
+        if cnt[num]! <= answer {
+            continue
+        }
         
-        for subsequence in subsequences {
-            let isStar = isStartSequence(arr: subsequence)
-            
-            if isStar {
-                return subsequence.count
+        var result = 0
+        
+        var i = 0
+        
+        while i < a.count-1 {
+            if (a[i] == num || a[i+1] == num) && (a[i] != a[i+1]) {
+                result += 1
+                i += 1
             }
+            
+            i += 1
         }
+        
+        answer = max(answer, result)
     }
     
-    return 0
-}
-
-// 스타 수열인지 확인, arr는 크기가 2 이상만 가능
-fileprivate func isStartSequence(arr: [Int]) -> Bool {
-    var intersection = Set<Int>()
-    intersection.formUnion(arr[0...1])
     
-    for i in stride(from: 0, to: arr.count-1, by: 2) {
-        if arr[i] == arr[i+1] {
-            return false
-        }
-        
-        intersection = intersection.intersection(arr[i...i+1])
-        
-        if intersection.count < 1 {
-            return false
-        }
-    }
-    
-    return true
-}
-
-// 부분 수열 구하기
-fileprivate func getSubsequence(arr: [Int], len: Int) -> [[Int]] {
-    var result = Set<[Int]>()
-    
-    func dfs(i: Int, cur: [Int]) {
-        if cur.count == len {
-            result.insert(cur)
-            return
-        }
-        
-        if i >= arr.count {
-            return
-        }
-        
-        for j in i..<arr.count {
-            dfs(i: j+1, cur: cur + [arr[j]])
-        }
-    }
-    
-    dfs(i: 0, cur: [])
-    
-    return Array(result)
+    return answer*2
 }
