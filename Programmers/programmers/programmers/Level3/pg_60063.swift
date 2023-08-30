@@ -10,43 +10,38 @@
 import Foundation
 
 func solve60063() {
-//    print(solution([[0, 0, 0, 1, 1],[0, 0, 0, 1, 0],[0, 1, 0, 1, 1],[1, 1, 0, 0, 1],[0, 0, 0, 0, 0]]))
-    print(solution([[0, 0, 1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0, 0, 0, 0], [1, 0, 0, 0, 1, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 1, 1, 1, 0, 0, 0, 0, 0], [0, 0, 0, 0, 1, 0, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 1, 1, 0, 1], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]))
+    print(solution([[0, 0, 0, 1, 1],[0, 0, 0, 1, 0],[0, 1, 0, 1, 1],[1, 1, 0, 0, 1],[0, 0, 0, 0, 0]]))
+//    print(solution([[0, 0, 1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0, 0, 0, 0], [1, 0, 0, 0, 1, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 1, 1, 1, 0, 0, 0, 0, 0], [0, 0, 0, 0, 1, 0, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 1, 1, 0, 1], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]))
 //    print(solution([[0, 0, 0, 0, 0, 0, 0, 0, 0], [1, 1, 1, 1, 1, 1, 1, 0, 0], [1, 1, 1, 1, 1, 1, 1, 1, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 1, 1, 1, 1, 1, 0, 0], [0, 1, 1, 1, 1, 1, 1, 1, 1], [0, 0, 1, 1, 1, 1, 1, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [1, 1, 1, 1, 1, 1, 1, 1, 0]]))
 }
 
 fileprivate func solution(_ board:[[Int]]) -> Int {
     let n = board.count
-    var distance = Array(repeating: Array(repeating: Int.max, count: n), count: n)
     var visited = Set<String>()
     
     var queue = [RobotCoordinate]()
-    queue.append(RobotCoordinate(wing1: (0,0), wing2: (0,1)))
-    distance[0][0] = 0
-    distance[0][1] = 0
+    queue.append(RobotCoordinate(wing1: (0,0), wing2: (0,1), cost: 0))
     
     while !queue.isEmpty {
         let cur = queue.removeFirst()
 
         let movablePositions = findMovablePositions(board: board, cur: cur)
-        let curDistance = max(distance[cur.wing1.x][cur.wing1.y], distance[cur.wing2.x][cur.wing2.y])
         
         if cur.wing1 == (n-1, n-1) || cur.wing2 == (n-1, n-1) {
-            distance[n-1][n-1] = curDistance
-            break
+            return cur.cost
         }
         
-        for position in movablePositions {
+        for _position in movablePositions {
+            var position = _position
             if !visited.contains(position.toString) {
+                position.cost = cur.cost + 1
                 queue.append(position)
                 visited.insert(position.toString)
-                distance[position.wing1.x][position.wing1.y] = min(distance[position.wing1.x][position.wing1.y], curDistance + 1)
-                distance[position.wing2.x][position.wing2.y] = min(distance[position.wing2.x][position.wing2.y], curDistance + 1)
             }
         }
     }
 
-    return distance[n-1][n-1]
+    return -1
 }
 
 fileprivate func findMovablePositions(board: [[Int]], cur: RobotCoordinate) -> [RobotCoordinate] {
@@ -147,6 +142,7 @@ fileprivate typealias Coordinate = (x: Int, y: Int)
 fileprivate struct RobotCoordinate {
     var wing1: Coordinate
     var wing2: Coordinate
+    var cost = 0
     
     var leftPosition: Coordinate {
         [wing1, wing2].sorted { $0.y < $1.y }[0]
