@@ -10,12 +10,15 @@
 import Foundation
 
 func solve60063() {
-    print(solution([[0, 0, 0, 1, 1],[0, 0, 0, 1, 0],[0, 1, 0, 1, 1],[1, 1, 0, 0, 1],[0, 0, 0, 0, 0]]))
+//    print(solution([[0, 0, 0, 1, 1],[0, 0, 0, 1, 0],[0, 1, 0, 1, 1],[1, 1, 0, 0, 1],[0, 0, 0, 0, 0]]))
+    print(solution([[0, 0, 1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0, 0, 0, 0], [1, 0, 0, 0, 1, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 1, 1, 1, 0, 0, 0, 0, 0], [0, 0, 0, 0, 1, 0, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 1, 1, 0, 1], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]))
+//    print(solution([[0, 0, 0, 0, 0, 0, 0, 0, 0], [1, 1, 1, 1, 1, 1, 1, 0, 0], [1, 1, 1, 1, 1, 1, 1, 1, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 1, 1, 1, 1, 1, 0, 0], [0, 1, 1, 1, 1, 1, 1, 1, 1], [0, 0, 1, 1, 1, 1, 1, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [1, 1, 1, 1, 1, 1, 1, 1, 0]]))
 }
 
 fileprivate func solution(_ board:[[Int]]) -> Int {
     let n = board.count
     var distance = Array(repeating: Array(repeating: Int.max, count: n), count: n)
+    var visited = Set<String>()
     
     var queue = [RobotCoordinate]()
     queue.append(RobotCoordinate(wing1: (0,0), wing2: (0,1)))
@@ -34,9 +37,9 @@ fileprivate func solution(_ board:[[Int]]) -> Int {
         }
         
         for position in movablePositions {
-            if curDistance+1 <= distance[position.wing1.x][position.wing1.y] || curDistance+1 <= distance[position.wing2.x][position.wing2.y] {
+            if !visited.contains(position.toString) {
                 queue.append(position)
-                
+                visited.insert(position.toString)
                 distance[position.wing1.x][position.wing1.y] = min(distance[position.wing1.x][position.wing1.y], curDistance + 1)
                 distance[position.wing2.x][position.wing2.y] = min(distance[position.wing2.x][position.wing2.y], curDistance + 1)
             }
@@ -77,7 +80,7 @@ fileprivate func findMovablePositions(board: [[Int]], cur: RobotCoordinate) -> [
     
     // 상
     if curTop.x >= 1 && canMove(coord: (curTop.x-1, curTop.y))
-        && canMove(coord: (cur.bottomPosition.x-1, curBottom.y)) {
+        && canMove(coord: (curBottom.x-1, curBottom.y)) {
         movablePositions.append(RobotCoordinate(wing1: (curTop.x-1, curTop.y),
                                                 wing2: (curBottom.x-1, curBottom.y)))
     }
@@ -85,7 +88,7 @@ fileprivate func findMovablePositions(board: [[Int]], cur: RobotCoordinate) -> [
     // 하
     if curBottom.x < n-1 && canMove(coord: (curBottom.x+1, curBottom.y))
         && canMove(coord: (curTop.x+1, curTop.y)) {
-        movablePositions.append(RobotCoordinate(wing1: (curBottom.x+1, cur.bottomPosition.y),
+        movablePositions.append(RobotCoordinate(wing1: (curBottom.x+1, curBottom.y),
                                                 wing2: (curTop.x+1, curTop.y)))
     }
     
@@ -146,22 +149,26 @@ fileprivate struct RobotCoordinate {
     var wing2: Coordinate
     
     var leftPosition: Coordinate {
-        return wing1.y <= wing2.y ? wing1 : wing2
+        [wing1, wing2].sorted { $0.y < $1.y }[0]
     }
     
     var rightPosition: Coordinate {
-        return wing1.y <= wing2.y ? wing2 : wing1
+        [wing1, wing2].sorted { $0.y < $1.y }[1]
     }
     
     var topPosition: Coordinate {
-        return wing1.x <= wing2.x ? wing1 : wing2
+        [wing1, wing2].sorted { $0.x < $1.x }[0]
     }
     
     var bottomPosition: Coordinate {
-        return wing1.x <= wing2.x ? wing2 : wing1
+        [wing1, wing2].sorted { $0.x < $1.x }[1]
     }
     
     var isHorizontal: Bool {
         return wing1.x == wing2.x
+    }
+    
+    var toString: String {
+        return "\(leftPosition.x),\(leftPosition.y),\(rightPosition.x),\(rightPosition.y)"
     }
 }
