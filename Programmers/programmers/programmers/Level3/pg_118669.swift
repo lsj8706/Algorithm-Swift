@@ -48,11 +48,17 @@ fileprivate func solution(_ n:Int, _ paths:[[Int]], _ gates:[Int], _ summits:[In
                         continue
                     }
                     
+                    let nextCost = max(curCost, cost)
+
+                    if nextCost > result.idensity {
+                        continue
+                    }
+
                     if !setSummits.contains(node) {
                         visited[node] = true
                     }
-                    
-                    queue.append((node, max(curCost, cost)))
+                                        
+                    queue.append((node, nextCost))
                 }
             }
         }
