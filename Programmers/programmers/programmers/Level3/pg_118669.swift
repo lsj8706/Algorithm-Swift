@@ -20,17 +20,19 @@ fileprivate func solution(_ n:Int, _ paths:[[Int]], _ gates:[Int], _ summits:[In
     for path in paths {
         graph.insert(node1: path[0], node2: path[1], cost: path[2])
     }
-    
-    func dijkstra(start: Int) -> [Int] {
+
+    func dijkstra() -> [Int] {
         var intensity = Array(repeating: 10_000_000, count: n+1)
-        intensity[start] = 0
-        
+
         var pq = PriorityQueue<Node> {
             $0.cost < $1.cost
         }
         
-        pq.enqueue(Node(name: start, cost: 0))
-        
+        for gate in gates {
+            intensity[gate] = 0
+            pq.enqueue(Node(name: gate, cost: 0))
+        }
+
         while !pq.isEmpty {
             let cur = pq.dequeue()!
             let curCost = cur.cost
@@ -54,17 +56,20 @@ fileprivate func solution(_ n:Int, _ paths:[[Int]], _ gates:[Int], _ summits:[In
         return intensity
     }
     
-    var answer = Answer(summit: n, idensity: 10_000_000)
+    var result = [n, 10_000_000]
     
-    for gate in gates {
-        let maxIntensity = dijkstra(start: gate)
-        
-        for summit in summits {
-            answer.compareAndupdate(summit: summit, idensity: maxIntensity[summit])
+    let maxIntensity = dijkstra()
+    
+    let summits = summits.sorted()
+    
+    for summit in summits {
+        if maxIntensity[summit] < result[1] {
+            result[0] = summit
+            result[1] = maxIntensity[summit]
         }
     }
     
-    return answer.toArray
+    return result
 }
 
 fileprivate struct Graph {
@@ -120,24 +125,5 @@ fileprivate struct Node: Comparable {
     
     static func < (lhs: Node, rhs: Node) -> Bool {
         lhs.cost < rhs.cost
-    }
-}
-
-fileprivate struct Answer {
-    let summit: Int
-    let idensity: Int
-    
-    var toArray: [Int] {
-        return [summit, idensity]
-    }
-    
-    mutating func compareAndupdate(summit: Int, idensity: Int) {
-        if self.idensity > idensity {
-            self = Answer(summit: summit, idensity: idensity)
-        } else if self.idensity == idensity {
-            if summit < self.summit {
-                self = Answer(summit: summit, idensity: idensity)
-            }
-        }
     }
 }
