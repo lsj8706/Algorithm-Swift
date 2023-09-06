@@ -24,24 +24,33 @@ fileprivate func solution(_ a:[Int], _ edges:[[Int]]) -> Int64 {
     for edge in edges {
         graph.insertEdge(with: edge)
     }
-    
-    let tree = graph.convertToTree()
-    
+        
     var result = 0
-    let root = tree.root
+    let root = graph.findRoot()
+    var visited = Array(repeating: false, count: a.count)
+    
+    var parentDict = [Int: Int]() // key: 자식 노드, value: 부모 노드
     
     func dfs(cur: Int) {
-        if let children = tree.children[cur] {
+        visited[cur] = true
+        
+        // leaf 노드까지 쭉 내려감
+        if let children = graph.data[cur] {
             for child in children {
-                dfs(cur: child)
+                if !visited[child] {    // 부모 노드를 재방문하는 것 방지
+                    parentDict[child] = cur
+                    dfs(cur: child)
+                }
             }
         }
 
-        guard let parent = tree.parent[cur] else {
+        if cur == root {
             // cur이 루트인 경우
             result += abs(a[cur])
             return
         }
+        
+        let parent = parentDict[cur]!
         
         a[parent] += a[cur]
         result += abs(a[cur])
@@ -68,62 +77,17 @@ fileprivate struct Graph {
         data[edge[1]]!.append(edge[0])
     }
     
-    func convertToTree() -> Tree {
-        var leafAndRoot = findLeafAndRoot()
-        let root = leafAndRoot.removeLast()
-        var tree = Tree(root: root, leafNodes: leafAndRoot)
-        
-        var visited = Array(repeating: false, count: self.count)
-        visited[root] = true
-        
-        var queue = [Int]()
-        queue.append(root)
-        
-        while !queue.isEmpty {
-            let cur = queue.removeFirst()
-            let children = data[cur]!
-            
-            for child in children {
-                if visited[child] == false {
-                    visited[child] = true
-                    tree.insert(parent: cur, children: child)
-                    queue.append(child)
-                }
-            }
-        }
-        
-        return tree
-    }
-    
-    private func findLeafAndRoot() -> [Int] {
-        var nodes = [Int]()
-        
+    func findRoot() -> Int {
         for (key, value) in data {
             if value.count == 1 {
-                nodes.append(key)
+                return key
             }
         }
         
-        return nodes
+        return 0  // 여긴 실행 X
     }
 }
 
-fileprivate struct Tree {
-    var children = [Int: [Int]]() // key: 부모, value: 자식 노드들
-    var parent = [Int: Int]() // key: 자식, value: 부모 노드
-    var root: Int
-    var leafNodes: [Int]
-    
-    init(root: Int, leafNodes: [Int]) {
-        self.root = root
-        self.leafNodes = leafNodes
-    }
-    
-    mutating func insert(parent: Int, children: Int) {
-        self.children[parent, default: []].append(children)
-        self.parent[children] = parent
-    }
-}
 
 // a의 합이 0이면 모두 0으로 만들 수 있다.
 // 리프 노드에서 로트 노드로 올림 -> 현재 노드가 0이 되면 스탑
