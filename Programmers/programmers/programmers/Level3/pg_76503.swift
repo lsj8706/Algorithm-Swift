@@ -28,19 +28,26 @@ fileprivate func solution(_ a:[Int], _ edges:[[Int]]) -> Int64 {
     let tree = graph.convertToTree()
     
     var result = 0
-    var queue = [Int]()
-    let leafNodes = tree.leafNodes
-    queue.append(contentsOf: leafNodes)
+    let root = tree.root
+    
+    func dfs(cur: Int) {
+        if let children = tree.children[cur] {
+            for child in children {
+                dfs(cur: child)
+            }
+        }
 
-    while !queue.isEmpty {
-        let cur = queue.removeFirst()
-        guard let parent = tree.parent[cur] else { continue }
-        result += abs(a[cur])
-        a[parent] += a[cur]
-        a[cur] = 0
+        guard let parent = tree.parent[cur] else {
+            // cur이 루트인 경우
+            result += abs(a[cur])
+            return
+        }
         
-        queue.append(parent)
+        a[parent] += a[cur]
+        result += abs(a[cur])
     }
+
+    dfs(cur: root)
     
     return Int64(result)
 }
