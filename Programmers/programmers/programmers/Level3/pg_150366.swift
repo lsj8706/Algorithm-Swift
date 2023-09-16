@@ -13,7 +13,7 @@ func solve150366() {
 //    print(solution(["UPDATE 1 1 menu", "UPDATE 1 2 category", "UPDATE 2 1 bibimbap", "UPDATE 2 2 korean", "UPDATE 2 3 rice", "UPDATE 3 1 ramyeon", "UPDATE 3 2 korean", "UPDATE 3 3 noodle", "UPDATE 3 4 instant", "UPDATE 4 1 pasta", "UPDATE 4 2 italian", "UPDATE 4 3 noodle", "MERGE 1 2 1 3", "MERGE 1 3 1 4", "UPDATE korean hansik", "UPDATE 1 3 group", "UNMERGE 1 4", "PRINT 1 3", "PRINT 1 4"]))
     
 //    print(solution(["UPDATE 1 1 A", "UPDATE 2 2 B", "UPDATE 3 3 C", "UPDATE 4 4 D", "MERGE 1 1 2 2", "MERGE 3 3 4 4", "MERGE 1 1 3 3", "UNMERGE 1 1", "PRINT 1 1", "PRINT 2 2", "PRINT 3 3", "PRINT 4 4"]))
-    print(solution(["MERGE 1 1 2 2", "MERGE 1 1 3 3", "UPDATE 3 3 A", "PRINT 1 1", "PRINT 2 2", "PRINT 3 3"]))
+    print(solution(["UPDATE 1 1 menu", "MERGE 1 1 1 2", "MERGE 1 1 1 3", "MERGE 1 1 1 4", "MERGE 1 2 1 3", "UPDATE 1 1 hansik", "PRINT 1 1", "PRINT 1 2", "PRINT 1 3", "PRINT 1 4"]))
 }
 
 fileprivate func solution(_ commands:[String]) -> [String] {
@@ -56,8 +56,8 @@ fileprivate func solution(_ commands:[String]) -> [String] {
             let router2 = table[r2][c2]
             
             if (r1, c1) == (r2, c2) { break }
-            
-            
+
+            if router1 === router2 { break }
             
             if router1.hasValue && router2.hasValue {
                 for (x, y) in router2.inboundCoords {
@@ -74,9 +74,11 @@ fileprivate func solution(_ commands:[String]) -> [String] {
                     table[x][y] = router2
                 }
                 router2.inboundCoords.append(contentsOf: router1.inboundCoords)
-            } else {
-                table[r2][c2] = router1
-                router1.inboundCoords.append((r2, c2))
+            } else {    // 둘 다 EMPTY인 경우에도 Merger가 가능 함
+                for (x, y) in router2.inboundCoords {
+                    table[x][y] = router1
+                }
+                router1.inboundCoords.append(contentsOf: router2.inboundCoords)
             }
             
         case "UNMERGE":
@@ -91,7 +93,7 @@ fileprivate func solution(_ commands:[String]) -> [String] {
             }
             
             table[r][c].value = value
-
+            
         case "PRINT":
             let r = Int(command[1])!
             let c = Int(command[2])!
