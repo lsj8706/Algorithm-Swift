@@ -35,9 +35,10 @@ fileprivate func solution(_ target:Int) -> [Int] {
         for num in numbers {
             if i - num > 0 {
                 let oneIfSingleOrBull = isSingleOrBull(num) ? 1 : 0
+                
                 if dp[i-num] + 1 < dp[i] {
-                    singleOrBullCnt[i] = singleOrBullCnt[i-num] + oneIfSingleOrBull
                     dp[i] = dp[i-num] + 1
+                    singleOrBullCnt[i] = singleOrBullCnt[i-num] + oneIfSingleOrBull
                 } else if dp[i-num]+1 == dp[i] {
                     singleOrBullCnt[i] = max(singleOrBullCnt[i], singleOrBullCnt[i-num] + oneIfSingleOrBull)
                 }
@@ -50,6 +51,7 @@ fileprivate func solution(_ target:Int) -> [Int] {
     return [dp[target], singleOrBullCnt[target]]
 }
 
+// 1발의 다트를 던져서 얻을 수 있는 수를 오름차순으로 정렬해서 리턴
 fileprivate func makePossibleNumbers() -> [Int] {
     var numbers = (1...20).map { $0 }
     
