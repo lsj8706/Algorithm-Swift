@@ -16,7 +16,7 @@ func solve131129() {
 
 fileprivate func solution(_ target:Int) -> [Int] {
     var dp = Array(repeating: target, count: 100_000 + 1)  // index: 총 점수, dp[index]: 총 index 점수가 나왔을 때 던진 다트 개수의 최솟값
-    var singleOrBullCnt = Array(repeating: 0, count: 100_000 + 1)    // singleOrBullCnt[i] 는 총 i점수가 나왔을 때 싱글이나 불이 나온 횟수
+    var singleOrBullCnt = Array(repeating: 0, count: 100_000 + 1)    // singleOrBullCnt[index] 는 총 index 점수를 만들었을 때 싱글이나 불이 나온 횟수
     
     if target <= 20 {
         return [1, 1]
