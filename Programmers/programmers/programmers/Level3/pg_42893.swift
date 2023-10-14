@@ -28,6 +28,7 @@ fileprivate func solution(_ word:String, _ pages:[String]) -> Int {
     }
     
     let matchingScores = pages.map { $0.matchingScore }
+
     let maxScore = matchingScores.max()!
     
     return matchingScores.firstIndex(of: maxScore)!
@@ -80,10 +81,10 @@ fileprivate class Page {
         let link = String(tag.split(separator: ">")[0].dropFirst(9).dropLast())
         self.externalLinks.append(link)
     }
-}
-
-fileprivate func calculateBasicScore(for tag: String, in word: String) -> Int {
-    // 검색어를 알파벳을 제외한 문자로 분리
-    let searchWords = tag.components(separatedBy: CharacterSet.letters.inverted)
-    return searchWords.filter { $0 == word }.count
+    
+    func calculateBasicScore(for tag: String, in word: String) -> Int {
+        // 검색어를 알파벳을 제외한 문자로 분리
+        let searchWords = tag.components(separatedBy: CharacterSet.letters.inverted)
+        return searchWords.filter { $0 == word }.count
+    }
 }
