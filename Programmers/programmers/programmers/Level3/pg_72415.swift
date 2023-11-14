@@ -83,7 +83,7 @@ fileprivate func bfs(board: [[Int]], x: Int, y: Int, target: Int) -> (x: Int, y:
         let curY = now.y
 
         if board[curX][curY] == target {
-            return (curX, curY, now.cnt)
+            return now
         }
         
         // 4 방향
