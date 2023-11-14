@@ -40,12 +40,21 @@ fileprivate func solution(_ board:[[Int]], _ r:Int, _ c:Int) -> Int {
             temp[res.x][res.y] = 0
             dfs(now: temp, x: res.x, y: res.y, cnt: cnt + res.cnt, entered: 0)
         } else {
-            // endtered가 없다면 가장 근처의 카드 찾기
-            let near = findNearestCard(board: now, x: x, y: y)
-            var temp = now
-            let target = temp[near.x][near.y]
-            temp[near.x][near.y] = 0
-            dfs(now: temp, x: near.x, y: near.y, cnt: cnt + near.cnt, entered: target)
+            var cards = Set<Int>()
+            for row in now {
+                for item in row {
+                    if item != 0 {
+                        cards.insert(item)
+                    }
+                }
+            }
+            
+            for card in cards {
+                let res = bfs(board: now, x: x, y: y, target: card)
+                var temp = now
+                temp[res.x][res.y] = 0
+                dfs(now: temp, x: res.x, y: res.y, cnt: cnt + res.cnt, entered: card)
+            }
         }
     }
     
@@ -117,60 +126,6 @@ fileprivate func bfs(board: [[Int]], x: Int, y: Int, target: Int) -> (x: Int, y:
     }
     
     return (0,0,0)
-}
-
-fileprivate func findNearestCard(board: [[Int]], x: Int, y: Int) -> (x: Int, y: Int, cnt: Int) {
-    var q = [(x: Int, y: Int, cnt: Int)]()
-    var visited = Array(repeating: Array(repeating: false, count: 4), count: 4)
-    q.append((x, y, 0))
-    
-    let dx = [0, 0, 1, -1]
-    let dy = [1, -1, 0, 0]
-    
-    while !q.isEmpty {
-        let cur = q.removeFirst()
-        let curX = cur.x
-        let curY = cur.y
-        
-        if board[curX][curY] != 0 {
-            return (curX, curY, cur.cnt)
-        }
-        
-        // 4 방향
-        for i in 0..<4 {
-            let nx = curX + dx[i]
-            let ny = curY + dy[i]
-            
-            if isInBoardSize(x: nx, y: ny) {
-                if visited[nx][ny] == false {
-                    q.append((nx, ny, cur.cnt+1))
-                    visited[nx][ny] = true
-                }
-            }
-        }
-        
-        // ctrl
-        for i in 0..<4 {
-            var tempX = curX
-            var tempY = curY
-            
-            while isInBoardSize(x: tempX+dx[i], y: tempY+dy[i]) {
-                tempX += dx[i]
-                tempY += dy[i]
-                
-                if board[tempX][tempY] != 0 {
-                    break
-                }
-            }
-            
-            if visited[tempX][tempY] == false {
-                q.append((tempX, tempY, cur.cnt+1))
-                visited[tempX][tempY] = true
-            }
-        }
-    }
-    
-    return (0, 0, 0)
 }
 
 fileprivate func isInBoardSize(x: Int, y: Int) -> Bool {
