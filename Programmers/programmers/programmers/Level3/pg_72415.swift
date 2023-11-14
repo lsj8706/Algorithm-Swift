@@ -28,18 +28,20 @@ fileprivate func solution(_ board:[[Int]], _ r:Int, _ c:Int) -> Int {
     }
     
     func dfs(now: [[Int]], x: Int, y: Int, cnt: Int, entered: Int) {
+        // base case: 전부 0이 된 상태 (모든 카드 확인 완료)
         if now.allSatisfy({ $0.reduce(0, +) == 0 }) {
             result = min(result, cnt)
             return
         }
         
-        // entered가 있다면 곧바로 찾아가기
+        // entered가 있다면 곧바로 해당 카드를 찾아가기
         if entered != 0 {
             let res = bfs(board: now, x: x, y: y, target: entered)
             var temp = now
             temp[res.x][res.y] = 0
             dfs(now: temp, x: res.x, y: res.y, cnt: cnt + res.cnt, entered: 0)
         } else {
+            // entered가 없다면 남아 있는 카드를 구하고 반복문을 돌며 해당 카드로 이동
             var cards = Set<Int>()
             for row in now {
                 for item in row {
@@ -58,14 +60,7 @@ fileprivate func solution(_ board:[[Int]], _ r:Int, _ c:Int) -> Int {
         }
     }
     
-    if board[r][c] == 0 {
-        dfs(now: board, x: r, y: c, cnt: 0, entered: 0)
-    } else {
-        let target = board[r][c]
-        var temp = board
-        temp[r][c] = 0
-        dfs(now: temp, x: r, y: c, cnt: 0, entered: target)
-    }
+    dfs(now: board, x: r, y: c, cnt: 0, entered: 0)
     
     // 엔터 횟수는 최초부터 정해져 있음 (카드의 수)
     return result + enterCnt
@@ -73,11 +68,11 @@ fileprivate func solution(_ board:[[Int]], _ r:Int, _ c:Int) -> Int {
 
 // 특정 위치까지의 최단 경로 찾기, 걸린 횟수와 위치 리턴
 fileprivate func bfs(board: [[Int]], x: Int, y: Int, target: Int) -> (x: Int, y: Int, cnt: Int) {
-    var q = [(x: Int, y: Int)]()
-    var visited = Array(repeating: Array(repeating: -1, count: 4), count: 4)
+    var q = [(x: Int, y: Int, cnt: Int)]()
+    var visited = Array(repeating: Array(repeating: false, count: 4), count: 4)
     
-    q.append((x, y))
-    visited[x][y] = 0
+    q.append((x, y, 0))
+    visited[x][y] = true
     
     let dx = [0, 0, 1, -1]
     let dy = [1, -1, 0, 0]
@@ -88,7 +83,7 @@ fileprivate func bfs(board: [[Int]], x: Int, y: Int, target: Int) -> (x: Int, y:
         let curY = now.y
 
         if board[curX][curY] == target {
-            return (curX, curY, visited[curX][curY])
+            return (curX, curY, now.cnt)
         }
         
         // 4 방향
@@ -97,9 +92,9 @@ fileprivate func bfs(board: [[Int]], x: Int, y: Int, target: Int) -> (x: Int, y:
             let ny = curY + dy[i]
             
             if isInBoardSize(x: nx, y: ny) {
-                if visited[nx][ny] > visited[curX][curY] + 1 || visited[nx][ny] == -1 {
-                    q.append((nx, ny))
-                    visited[nx][ny] = visited[curX][curY] + 1
+                if visited[nx][ny] == false {
+                    q.append((nx, ny, now.cnt+1))
+                    visited[nx][ny] = true
                 }
             }
         }
@@ -118,9 +113,9 @@ fileprivate func bfs(board: [[Int]], x: Int, y: Int, target: Int) -> (x: Int, y:
                 }
             }
             
-            if visited[tempX][tempY] > visited[curX][curY] + 1 || visited[tempX][tempY] == -1  {
-                q.append((tempX, tempY))
-                visited[tempX][tempY] = visited[curX][curY] + 1
+            if visited[tempX][tempY] == false {
+                q.append((tempX, tempY, now.cnt+1))
+                visited[tempX][tempY] = true
             }
         }
     }
