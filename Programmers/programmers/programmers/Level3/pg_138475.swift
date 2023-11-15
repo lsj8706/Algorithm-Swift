@@ -22,7 +22,7 @@ fileprivate func solution(_ e:Int, _ starts:[Int]) -> [Int] {
         }
     }
 
-    var dp = Array(repeating: 0, count: e+1)
+    var dp = Array(repeating: 0, count: e+1) // dp[i]는 i...e 범위의 수 중에서 억억단에서 가장 많이 등장한 수
     
     dp[e] = e
     
