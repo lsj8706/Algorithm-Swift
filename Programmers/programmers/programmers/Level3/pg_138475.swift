@@ -14,37 +14,31 @@ func solve138475() {
 }
 
 fileprivate func solution(_ e:Int, _ starts:[Int]) -> [Int] {
-    var arr = Array(repeating: 0, count: e+1)
+    var count = Array(repeating: 0, count: e+1) // count[i]는 i의 약수의 개수
     
     for i in 1...e {
-        for j in stride(from: i, through: e, by: i) {
-            arr[j] += 1
+        for j in 1...e/i {
+            count[i*j] += 1
         }
     }
 
-    var dp = Array(repeating: 0, count: e+1) // dp[i] 는 e-i...e 까지의 원소 중 등장 횟수 최댓값
-    var mostNum = Array(repeating: e, count: e+1) // mostNum[i] 는 e-i...e 까지의 원소 중 가장 많이 등장한 숫자
-    let reversedArr = Array(arr.reversed())
-    dp[0] = reversedArr[0]
+    var dp = Array(repeating: 0, count: e+1)
     
-    for i in 1...e {
-        if dp[i-1] <= reversedArr[i] {
-            dp[i] = reversedArr[i]
-            mostNum[i] = e-i
+    dp[e] = e
+    
+    for i in stride(from: e-1, to: 0, by: -1) {
+        if count[dp[i+1]] <= count[i] {
+            dp[i] = i
         } else {
-            dp[i] = dp[i-1]
-            mostNum[i] = mostNum[i-1]
+            dp[i] = dp[i+1]
         }
     }
-    
-    let reversedMostNum = Array(mostNum.reversed())
-    
+
     var result = [Int]()
     
     for start in starts {
-        result.append(reversedMostNum[start])
+        result.append(dp[start])
     }
     
     return result
 }
-
