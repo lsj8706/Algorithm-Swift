@@ -21,6 +21,8 @@ fileprivate func solution(_ info:[String], _ query:[String]) -> [Int] {
         tree.insertNode(info: i)
     }
     
+    tree.sortLeaves(node: tree.root)
+    
     var result = [Int]()
     
     for q in query {
@@ -34,6 +36,7 @@ fileprivate class InfoNode {
     let name: String
     var score: Int = -1
     var children = [InfoNode]()
+    var scores = [Int]()
     
     init(name: String, score: Int) {
         self.name = name
@@ -48,16 +51,25 @@ fileprivate class InfoNode {
         self.children.append(node)
     }
     
+    func addScore(_ score: Int) {
+        self.scores.append(score)
+    }
+    
     func getCount(score: Int) -> Int {
-        var cnt = 0
-        
-        for child in children {
-            if child.score >= score {
-                cnt += 1
+        var start = 0
+        var end = scores.count - 1
+
+        while start <= end {
+            let mid = (start + end) / 2
+            
+            if scores[mid] >= score {
+                end = mid - 1
+            } else {
+                start = mid + 1
             }
         }
-        
-        return cnt
+                    
+        return max(scores.count - start, 0)
     }
 }
 
@@ -73,8 +85,8 @@ fileprivate class InfoTree {
             
             // 점수인 경우
             if info.isEmpty {
-                let child = makeScoreNode(Int(first)!)
-                cur.addChild(node: child)
+                cur.addScore(Int(first)!)
+                return
             }
             
             if let child = cur.findChild(name: first) {
@@ -89,10 +101,6 @@ fileprivate class InfoTree {
     
     private func makeNode(_ name: String) -> InfoNode {
         InfoNode(name: name, score: -1)
-    }
-    
-    private func makeScoreNode(_ score: Int) -> InfoNode {
-        InfoNode(name: "", score: score)
     }
     
     func getCount(query: String) -> Int {
@@ -112,7 +120,6 @@ fileprivate class InfoTree {
             if query.isEmpty { // 점수 노드
                 let score = Int(name)!
                 result += cur.getCount(score: score)
-                
                 return
             }
             
@@ -130,5 +137,20 @@ fileprivate class InfoTree {
         dfs(query: query, cur: root)
         
         return result
+    }
+    
+    func sortLeaves(node: InfoNode) {
+        if node.children.isEmpty && node.scores.isEmpty {
+            return
+        }
+        
+        if !node.scores.isEmpty {
+            node.scores.sort()
+            return
+        } else {
+            for child in node.children {
+                sortLeaves(node: child)
+            }
+        }
     }
 }
