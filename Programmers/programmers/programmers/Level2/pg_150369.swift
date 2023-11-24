@@ -16,53 +16,28 @@ func solve150369() {
 }
 
 fileprivate func solution(_ cap:Int, _ n:Int, _ deliveries:[Int], _ pickups:[Int]) -> Int64 {
-    var deliveries = deliveries
-    var pickups = pickups
+    var result = 0
     
-    var distance = 0
+    var boxCap = 0
+    var emptyBoxCap = 0
     
-    while !deliveries.isEmpty && !pickups.isEmpty {
-        var destination = 0
-
-        // 뒤부터 deliveries 제거
-        var lastIndex = deliveries.count - 1
-        var box = cap
-        var emptyBox = 0
-        var index = lastIndex
-    
-        while (box > 0 || emptyBox < cap) && index >= 0 {
-            if deliveries[index] > 0 || pickups[index] > 0 {
-                destination = max(destination, index + 1)
+    for i in stride(from: n-1, through: 0, by: -1) {
+        if deliveries[i] != 0 || pickups[i] != 0 {
+            var cnt = 0
+            
+            // 해당 위치의 집에 배송, 수거 전부 완료하기
+            while boxCap < deliveries[i] || emptyBoxCap < pickups[i] {
+                cnt += 1
+                boxCap += cap
+                emptyBoxCap += cap
             }
             
-            if box > 0 {
-                box -= deliveries[index]
-                deliveries[index] = 0
-                if box < 0 {
-                    deliveries[index] = abs(box)
-                }
-            }
+            result += (i+1) * (cnt*2)
             
-            if emptyBox < cap {
-                emptyBox += pickups[index]
-                pickups[index] = 0
-                if emptyBox > cap {
-                   pickups[index] = emptyBox - cap
-                }
-            }
-            
-            lastIndex = deliveries.count - 1
-            
-            if deliveries[lastIndex] == 0 && pickups[lastIndex] == 0 {
-                deliveries.removeLast()
-                pickups.removeLast()
-            }
-            
-            index -= 1
+            boxCap -= deliveries[i]
+            emptyBoxCap -= pickups[i]
         }
-        
-        distance += destination * 2
     }
     
-    return Int64(distance)
+    return Int64(result)
 }
