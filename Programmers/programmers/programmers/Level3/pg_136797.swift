@@ -11,7 +11,7 @@ import Foundation
 
 func solve136797() {
 //    print(solution("1756"))
-    print(solution("0123"))
+    print(solution("5123"))
 }
 
 fileprivate func solution(_ numbers:String) -> Int {
@@ -23,34 +23,33 @@ fileprivate func solution(_ numbers:String) -> Int {
         dict[i] = weights
     }
     
-    var result = Int.max
+    var dp = Array(repeating: Array(repeating: Array(repeating: Int.max, count: 10), count: 10), count: numbers.count)
+    let n = numbers.count
 
-    func dfs(i: Int, leftHand: Int, rightHand: Int, total: Int) {
-        if total >= result { return }
+    func getMinTime(idx: Int, left: Int, right: Int) -> Int {
+        if idx == n { return 0 }
+        let num = numbers[idx]
         
-        if i == numbers.count {
-            result = min(result, total)
-            return
+        if dp[idx][left][right] == Int.max {
+            var first = Int.max
+            var second = Int.max
+            
+            if right != num {
+                first = dict[left]![num] + getMinTime(idx: idx + 1, left: num, right: right)
+            }
+            
+            if left != num {
+                second = dict[right]![num] + getMinTime(idx: idx + 1, left: left, right: num)
+            }
+            
+            dp[idx][left][right] = min(first, second)
+            
         }
         
-        let num = numbers[i]
-        
-        let leftWeight = dict[leftHand]![num]
-        let rightWeight = dict[rightHand]![num]
-        
-        if leftWeight < rightWeight {
-            dfs(i: i+1, leftHand: num, rightHand: rightHand, total: total + leftWeight)
-        } else if rightWeight > leftWeight {
-            dfs(i: i+1, leftHand: leftHand, rightHand: num, total: total + rightWeight)
-        } else {
-            dfs(i: i+1, leftHand: num, rightHand: rightHand, total: total + leftWeight)
-            dfs(i: i+1, leftHand: leftHand, rightHand: num, total: total + rightWeight)
-        }
+        return dp[idx][left][right]
     }
     
-    dfs(i: 0, leftHand: 4, rightHand: 6, total: 0)
-    
-    return result
+    return getMinTime(idx: 0, left: 4, right: 6)
 }
 
 fileprivate func getPosition(num: Int) -> (Int, Int) {
