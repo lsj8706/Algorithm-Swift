@@ -31,19 +31,20 @@ fileprivate func solution(_ numbers:String) -> Int {
         let num = numbers[idx]
         
         if dp[idx][left][right] == Int.max {
-            var first = Int.max
-            var second = Int.max
+            var weightWhenLeftHandMove = Int.max
+            var weightWhenRightHandMove = Int.max
             
             if right != num {
-                first = dict[left]![num] + getMinTime(idx: idx + 1, left: num, right: right)
+                // 왼손으로 누르기
+                weightWhenLeftHandMove = dict[left]![num] + getMinTime(idx: idx + 1, left: num, right: right)
             }
             
             if left != num {
-                second = dict[right]![num] + getMinTime(idx: idx + 1, left: left, right: num)
+                // 오른손으로 누르기
+                weightWhenRightHandMove = dict[right]![num] + getMinTime(idx: idx + 1, left: left, right: num)
             }
             
-            dp[idx][left][right] = min(first, second)
-            
+            dp[idx][left][right] = min(weightWhenLeftHandMove, weightWhenRightHandMove)
         }
         
         return dp[idx][left][right]
