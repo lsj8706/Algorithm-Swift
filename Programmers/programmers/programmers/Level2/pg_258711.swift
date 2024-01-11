@@ -29,7 +29,7 @@ fileprivate func solution(_ edges:[[Int]]) -> [Int] {
     
     var result = [center, 0, 0, 0] // [생성한 정점, 도넛, 막대, 8자]
     
-    func checkShape(now: Int, visited: Set<Int>) {
+    func checkShape(now: Int, startNode: Int) {
         let adjacentNodes = graph[now, default: []]
         
         if adjacentNodes.isEmpty { // 막대
@@ -43,19 +43,19 @@ fileprivate func solution(_ edges:[[Int]]) -> [Int] {
         }
         
         for node in adjacentNodes {
-            if visited.contains(node) { // 도넛
+            if startNode == node { // 도넛
                 result[1] += 1
                 return
             }
             
-            checkShape(now: node, visited: visited.union([node]))
+            checkShape(now: node, startNode: startNode)
         }
     }
     
     let centerAdjacentNodes = graph[center, default: []]
     
     for node in centerAdjacentNodes {
-        checkShape(now: node, visited: [])
+        checkShape(now: node, startNode: node)
     }
     
     return result
