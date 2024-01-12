@@ -16,13 +16,13 @@ func solve84021() {
 fileprivate func solution(_ game_board:[[Int]], _ table:[[Int]]) -> Int {
     
     // 도형 찾기 (bfs)
-    var visited = [[Bool]]()
+    var visited = Array(repeating: Array(repeating: false, count: table[0].count), count: table.count)
     var figures = [[Coord]]() // 각 도형들은 좌상단으로 옮겨서 저장
     
     let dx = [0, 0, 1, -1]
     let dy = [1, -1, 0, 0]
     
-    func bfs(x: Int, y: Int, rotatedTable: [[Int]]) {
+    func bfs(x: Int, y: Int) {
         var result = [(Int, Int)]()
         var queue = [(Int, Int)]()
         
@@ -36,8 +36,8 @@ fileprivate func solution(_ game_board:[[Int]], _ table:[[Int]]) -> Int {
                 let nextX = now.0 + dx[i]
                 let nextY = now.1 + dy[i]
                 
-                if nextX >= 0 && nextX < rotatedTable.count && nextY >= 0 && nextY < rotatedTable[0].count {
-                    if visited[nextX][nextY] == false && rotatedTable[nextX][nextY] == 1 {
+                if nextX >= 0 && nextX < table.count && nextY >= 0 && nextY < table[0].count {
+                    if visited[nextX][nextY] == false && table[nextX][nextY] == 1 {
                         visited[nextX][nextY] = true
                         queue.append((nextX, nextY))
                     }
@@ -51,24 +51,16 @@ fileprivate func solution(_ game_board:[[Int]], _ table:[[Int]]) -> Int {
         figures.append(result.map { Coord(x: $0.0-minX, y: $0.1-minY) })
     }
     
-    var prevTable = table
-    // 4번 회전시켜서 생길 수 있는 모형 전부 검출
-    for _ in 0..<4 {
-        let rotatedTable = rotateArray(prevTable)
-        prevTable = rotatedTable
-        visited = Array(repeating: Array(repeating: false, count: rotatedTable[0].count), count: rotatedTable.count)
-        
-        for x in rotatedTable.indices {
-            for y in rotatedTable[0].indices {
-                if visited[x][y] == false && rotatedTable[x][y] == 1 {
-                    visited[x][y] = true
-                    bfs(x: x, y: y, rotatedTable: rotatedTable)
-                }
+
+    for x in table.indices {
+        for y in table[0].indices {
+            if visited[x][y] == false && table[x][y] == 1 {
+                visited[x][y] = true
+                bfs(x: x, y: y)
             }
         }
     }
     
-    // 이제 figures에 도형들 묶음이 다 들어있음 (회전 포함)
     var boardVisited = Array(repeating: Array(repeating: false, count: game_board[0].count), count: game_board.count)
     var blanks = [[Coord]]()
     
@@ -109,35 +101,39 @@ fileprivate func solution(_ game_board:[[Int]], _ table:[[Int]]) -> Int {
             }
         }
     }
-    
-//    print(blanks.map { $0.map { "\($0.x) \($0.y)" } })
-    print(figures.map { $0.map { "\($0.x) \($0.y)" } }.filter { $0.count == 5 })
-    
+
     var result = 0
-    for blank in blanks {
-        if figures.contains(where: { $0 == blank }) {
-            result += blank.count
-            // 회전으로 발생하는 도형 지우기
+    outer: for blank in blanks {
+        for (index, figure) in figures.enumerated() {
+            if figure.count != blank.count { continue }
+            var prev = figure
+            for _ in 0..<4 {
+                // 회전시키며 검사
+                let rotated = rotate(arr: prev)
+                prev = rotated
+                if rotated.sorted(by: { ($0.x, $0.y) < ($1.x, $1.y) }) == blank.sorted(by: { ($0.x, $0.y) < ($1.x, $1.y) }) {
+                    figures.remove(at: index)
+                    result += blank.count
+                    continue outer
+                }
+            }
         }
     }
     
     return result
 }
 
-// 90도 회전
-fileprivate func rotateArray(_ arr: [[Int]]) -> [[Int]] {
-    var result = Array(repeating: Array(repeating: 0, count: arr.count), count: arr[0].count)
+fileprivate func rotate(arr: [Coord]) -> [Coord] {
+    let maxX = arr.max(by: { $0.x < $1.x })!.x
     
-    for x in arr.indices {
-        for y in arr[0].indices {
-            result[y][arr.count-1-x] = arr[x][y]
-        }
-    }
-    
-    return result
+    return arr.map { Coord(x: $0.y, y: maxX-$0.x) }
 }
 
-fileprivate struct Coord: Equatable {
+fileprivate struct Coord: Equatable, CustomStringConvertible {
+    var description: String {
+        return "\(x) \(y)"
+    }
+    
     let x: Int
     let y: Int
 }
