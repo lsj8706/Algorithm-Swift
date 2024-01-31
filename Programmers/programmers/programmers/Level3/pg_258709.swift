@@ -25,7 +25,7 @@ fileprivate func solution(_ dice:[[Int]]) -> [Int] {
         let diceSumForA = getAllDiceSum(dice: diceForA.map { dice[$0] })
         let diceSumForB = getAllDiceSum(dice: diceForB.map { dice[$0] })
         
-        var winCnt = calculateAWinCount(diceSumForA: diceSumForA, diceSumForB: diceSumForB)
+        let winCnt = calculateAWinCount(diceSumForA: diceSumForA, diceSumForB: diceSumForB)
         
         if winCnt > maxWinCnt {
             maxWinCnt = winCnt
