@@ -97,8 +97,8 @@ fileprivate func moveUntilBumped(direction: Direction, cur: Coord, board: [[Stri
     var y = cur.y
 
     while x >= 0 && x < board.count && y >= 0 && y < board[0].count {
-        var nx = x + dx
-        var ny = y + dy
+      let nx = x + dx
+      let ny = y + dy
         
         if nx < 0 || nx >= board.count || ny < 0 || ny >= board[0].count {
             break

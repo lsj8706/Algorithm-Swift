@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		CE02821029A4C536005FAE74 /* pg_87946.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE02820F29A4C536005FAE74 /* pg_87946.swift */; };
 		CE02823A29A6061A005FAE74 /* pg_131127.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE02823929A6061A005FAE74 /* pg_131127.swift */; };
+		CE033EA82B6B7E8E00D3E3EB /* pg_181186.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE033EA72B6B7E8E00D3E3EB /* pg_181186.swift */; };
 		CE0928572A8B3F6E00362413 /* pg_72414.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0928562A8B3F6E00362413 /* pg_72414.swift */; };
 		CE0C9BB32ACAA9F2000022C4 /* pg_169199.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0C9BB22ACAA9F2000022C4 /* pg_169199.swift */; };
 		CE0C9BB52ACE87EB000022C4 /* pg_134239.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0C9BB42ACE87EB000022C4 /* pg_134239.swift */; };
@@ -258,6 +259,7 @@
 /* Begin PBXFileReference section */
 		CE02820F29A4C536005FAE74 /* pg_87946.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = pg_87946.swift; sourceTree = "<group>"; };
 		CE02823929A6061A005FAE74 /* pg_131127.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = pg_131127.swift; sourceTree = "<group>"; };
+		CE033EA72B6B7E8E00D3E3EB /* pg_181186.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = pg_181186.swift; sourceTree = "<group>"; };
 		CE0928562A8B3F6E00362413 /* pg_72414.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = pg_72414.swift; sourceTree = "<group>"; };
 		CE0C9BB22ACAA9F2000022C4 /* pg_169199.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = pg_169199.swift; sourceTree = "<group>"; };
 		CE0C9BB42ACE87EB000022C4 /* pg_134239.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = pg_134239.swift; sourceTree = "<group>"; };
@@ -566,6 +568,7 @@
 				CEA184EF2B5A4CF60018804F /* pg_131702.swift */,
 				CEA184FF2B5E39610018804F /* pg_258709.swift */,
 				CEB2063D2B6A307E00B2D261 /* pg_258707.swift */,
+				CE033EA72B6B7E8E00D3E3EB /* pg_181186.swift */,
 			);
 			path = Level3;
 			sourceTree = "<group>";
@@ -823,7 +826,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1340;
-				LastUpgradeCheck = 1410;
+				LastUpgradeCheck = 1500;
 				TargetAttributes = {
 					CE683F9728AE51A5004A65C6 = {
 						CreatedOnToolsVersion = 13.4.1;
@@ -1011,6 +1014,7 @@
 				CEF19F5729AA035800A718E3 /* pg_68645.swift in Sources */,
 				CE21C7FC299F5518009B57E7 /* pg_64065.swift in Sources */,
 				CE68406228BCFE75004A65C6 /* pg_17684.swift in Sources */,
+				CE033EA82B6B7E8E00D3E3EB /* pg_181186.swift in Sources */,
 				CEEC79612A3424AD004E02C8 /* pg_172927.swift in Sources */,
 				CE68405A28BA2B8C004A65C6 /* pg_12913.swift in Sources */,
 				CEBE6B732A7B763100852930 /* pg_161988.swift in Sources */,
@@ -1132,6 +1136,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -1193,6 +1198,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
